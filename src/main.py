@@ -7,9 +7,10 @@ import sys
 from glob import glob
 from music21 import converter, instrument, note, chord
 
-if len(sys.argv) != 3:
+if len(sys.argv) != 2:
     print("Wrong number of arguments")
-    print("program <midi files folder>")
+    print("Usage: " + sys.argv[0] + " <midi files folder>")
+    exit()
 
 midi_files = glob(sys.argv[1] + "/**/*.mid")
 melodies = []
