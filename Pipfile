@@ -14,4 +14,4 @@ music21 = "*"
 python_version = "3.9"
 
 [scripts]
-start = "python src/main.py"
+start = "python src/main.py MIDI_examples"
