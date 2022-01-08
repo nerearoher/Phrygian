@@ -14,7 +14,7 @@ class Melody():
                     self.add_chord(element)
                 elif isinstance(element, Rest):
                     self.add_rest(element)
-
+    
     def add_note(self, note: Note):
         duration = float(note.quarterLength)
         if self.previous_pitch is None:

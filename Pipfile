@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 tensorflow = "2.7"
 music21 = "*"
+keras = "*"
 
 [dev-packages]
 
@@ -13,4 +14,5 @@ music21 = "*"
 python_version = "3.9"
 
 [scripts]
-start = "python src/midi_processor.py MIDI_examples melodies"
+process-midis = "python src/midi_processor.py MIDI_examples melodies"
+train = "python src/train_network.py melodies"

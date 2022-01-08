@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b21dd5a7f052ac58658c2c826b3d8f72d642fe6ad01f527df286a0c71c088743"
+            "sha256": "01726d55f38c7d8ca8d5ce1ef92c87b4855986756dbdbb92f07c9572c65c5e15"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -225,6 +225,7 @@
             "hashes": [
                 "sha256:0c33ae1f728064ca0d35dfba999e9c316f03623bf5688c82fb83cc74a80ea248"
             ],
+            "index": "pypi",
             "version": "==2.7.0"
         },
         "keras-preprocessing": {
