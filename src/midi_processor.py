@@ -3,7 +3,7 @@
 # https://mido.readthedocs.io/en/latest/midi_files.html
 # https://github.com/Skuldur/Classical-Piano-Composer
 
-import sys
+from sys import argv
 from glob import glob
 from multiprocessing import Pool
 import json
@@ -20,24 +20,25 @@ def read_melodies_from_file(file: str):
     except:
         print(f"An error ocurred, skipping file: {file}")
         return []
-    return list(map(lambda part: melodies.append(Melody(part)), score))
+    return list(map(lambda part: Melody(part), score))
 
 def print_usage():
-    print("Usage: " + sys.argv[0] + " <midi files folder> <output file>")
+    print("Usage: " + argv[0] + " <midi files folder> <output file>")
 
-if len(sys.argv) > 1 and (sys.argv[1] == "-h" or sys.argv[1] == "--help"):
+if len(argv) > 1 and (argv[1] == "-h" or argv[1] == "--help"):
     print_usage()
     exit()
 
-if len(sys.argv) != 3:
+if len(argv) != 3:
     print("Wrong number of arguments")
     print_usage()
     exit()
 
-midi_files = glob(sys.argv[1] + "/**/*.mid") + glob(sys.argv[1] + "/**/*.MID")
+midi_files = glob(argv[1] + "/**/*.mid") + glob(argv[1] + "/**/*.MID")
 
 pool = Pool()
 unflattened_melodies = pool.imap_unordered(read_melodies_from_file, midi_files)
 melodies = [m for melodies in unflattened_melodies for m in melodies]
-with open(sys.argv[2], "w") as output:
-    output.write(json.dumps(list(map(lambda melody: melody.notes, melodies))))
+with open(argv[2], "w") as output:
+    raw_melodies = list(map(lambda melody: melody.to_notes(), melodies))
+    output.write(json.dumps(raw_melodies))

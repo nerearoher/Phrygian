@@ -38,3 +38,6 @@ class Melody():
         duration = float(rest.quarterLength)
         if len(self.notes) != 0:
             self.notes[-1] = (self.notes[-1][0], self.notes[-1][1] + duration)
+            
+    def to_notes(self) -> [(int, float)]:
+        return self.notes
