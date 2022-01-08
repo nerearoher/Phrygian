@@ -16,7 +16,7 @@ class Melody():
                     self.add_rest(element)
 
     def add_note(self, note: Note):
-        duration = note.quarterLength
+        duration = float(note.quarterLength)
         if self.previous_pitch is None:
             self.notes.append((0, duration))
         else:
@@ -24,7 +24,7 @@ class Melody():
         self.previous_pitch = note.pitch.midi
 
     def add_chord(self, chord: Chord):
-        duration = chord.quarterLength
+        duration = float(chord.quarterLength)
         for pitch in chord.pitches[:-1]:
             if self.previous_pitch is None:
                 self.notes.append((0, duration))
@@ -35,5 +35,6 @@ class Melody():
         self.notes.append((last_pitch.midi - self.previous_pitch, duration))
 
     def add_rest(self, rest: Rest):
+        duration = float(rest.quarterLength)
         if len(self.notes) != 0:
-            self.notes[-1] = (self.notes[-1][0], self.notes[-1][1] + rest.quarterLength)
+            self.notes[-1] = (self.notes[-1][0], self.notes[-1][1] + duration)
