@@ -7,6 +7,7 @@ name = "pypi"
 tensorflow = "2.7"
 music21 = "*"
 keras = "*"
+numpy = "*"
 
 [dev-packages]
 
