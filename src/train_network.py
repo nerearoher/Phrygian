@@ -49,12 +49,7 @@ def create_network(sequences, output_size):
         return_sequences=True, 
         recurrent_dropout=0.3
     ))
-    network.add(LSTM(512, return_sequences=True, recurrent_dropout=0.3,))
     network.add(LSTM(512))
-    network.add(BatchNorm())
-    network.add(Dropout(0.3))
-    network.add(Dense(256))
-    network.add(Activation('relu'))
     network.add(BatchNorm())
     network.add(Dropout(0.3))
     network.add(Dense(output_size))
@@ -72,7 +67,7 @@ def train_network(network, sequences, outputs):
         save_best_only=True,
         mode='min'
     )
-    network.fit(sequences, outputs, epochs=200, callbacks=[checkpoint])
+    network.fit(sequences, outputs, epochs=5, callbacks=[checkpoint])
 
 if len(argv) > 1 and (argv[1] == "-h" or argv[1] == "--help"):
     print_usage()
