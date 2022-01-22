@@ -13,10 +13,9 @@ def train_network(network, sequences, outputs):
         filepath,
         monitor='loss',
         verbose=0,
-        save_best_only=True,
         mode='min'
     )
-    network.fit(sequences, outputs, epochs=5, callbacks=[checkpoint])
+    network.fit(sequences, outputs, epochs=8, callbacks=[checkpoint])
 
 if len(argv) > 1 and (argv[1] == "-h" or argv[1] == "--help"):
     print_usage()

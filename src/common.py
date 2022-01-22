@@ -3,7 +3,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, LSTM, Activation, \
                          BatchNormalization as BatchNorm
 
-SEQUENCE_LENGTH = 30
+SEQUENCE_LENGTH = 50
 
 def prepare_sequences(melodies, unique_pitches, unique_durations):
     pitches_number = len(unique_pitches)
