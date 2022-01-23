@@ -65,7 +65,9 @@ def generate_midi(initial_note, notes, name_instrument):
         new_note.quarterLength = note[1]
         stream.append(new_note)
 
-    return Stream(stream)
+    stream = Stream(stream)
+    stream.show()
+    return stream
 
 if len(argv) > 1 and (argv[1] == "-h" or argv[1] == "--help"):
     print_usage()
