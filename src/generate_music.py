@@ -1,12 +1,14 @@
 import json
 from sys import argv
 import numpy as np
-from common import prepare_sequences, create_network
+from common import prepare_sequences, create_network, instruments
 from music21.note import Note
 from music21.stream import Stream
+from music21 import instrument
 
 def print_usage():
-    print("Usage: " + argv[0] + " <processed midis file> <neural networks weights> <initial note> <output midi file>")
+    print("Usage: " + argv[0] + " <processed midis file> <neural networks weights> <initial note> <output midi file> <instrument>")
+    print("Available instruments: " + ", ".join(instruments.keys()))
 
 def generate_notes(model, network_input, unique_pitches, unique_durations):
     base = sequences[np.random.randint(0, len(sequences) - 1)]
@@ -43,8 +45,15 @@ def normalize_pitch(pitch):
         return pitch - 12
     return pitch
 
-def generate_midi(initial_note, notes):
-    stream = [] 
+def get_instrument(name_instrument):
+    if not name_instrument in instruments:
+        print("Invalid instrument " + name_instrument + ", check the list of available instruments:")
+        print("Available instruments: " + ", ".join(instruments.keys()))
+        exit(-1)
+    return instruments[name_instrument]
+
+def generate_midi(initial_note, notes, name_instrument):
+    stream = [get_instrument(name_instrument)]
     pitch = initial_note.pitch.midi
     new_note = Note(pitch)
     new_note.quarterLength = notes[np.random.randint(0, len(notes))][1]
@@ -62,7 +71,7 @@ if len(argv) > 1 and (argv[1] == "-h" or argv[1] == "--help"):
     print_usage()
     exit()
 
-if len(argv) != 5:
+if len(argv) != 6:
     print("Wrong number of arguments")
     print_usage()
     exit()
@@ -72,6 +81,7 @@ with open(argv[1], "r") as input:
     weights_file = argv[2]
     initial_note = Note(argv[3])
     output_file = argv[4]
+    name_instrument = argv[5]
     melodies = json.loads(content)
 
     pitches = [note[0] for melody in melodies for note in melody]
@@ -84,6 +94,6 @@ with open(argv[1], "r") as input:
     network = create_network(sequences, output_size)
     network.load_weights(weights_file)
     notes = generate_notes(network, sequences, unique_pitches, unique_durations)
-    midi = generate_midi(initial_note, notes)
+    midi = generate_midi(initial_note, notes, name_instrument)
     midi.write('midi', fp=output_file)
     print("Train network")
