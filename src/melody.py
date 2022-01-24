@@ -1,9 +1,14 @@
 from music21.note import Note, Rest
 from music21.stream import Stream
 from music21.chord import Chord
+from math import sqrt
 
 def calculate_pitch(pitch):
-    return (- 13 if pitch < 0 else 0) + pitch % 13
+    if pitch == 0:
+        return pitch
+    if pitch % 12 == 0:
+        return pitch / int(sqrt(pitch**2)) * 12
+    return (- 12 if pitch < 0 else 0) + pitch % 12
 
 def calculate_duration(duration):
     return min(int(float(duration) * 4) / 4, 4.0)
