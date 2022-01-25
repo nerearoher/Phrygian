@@ -168,3 +168,23 @@ instruments = {
     "WoodwindInstrument": instrument.WoodwindInstrument(),
     "Xylophone": instrument.Xylophone()
 }
+
+# https://en.wikipedia.org/wiki/List_of_musical_scales_and_modes
+scales: {
+    "Chromatic": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "Octatonic": [0, 1, 3, 4, 6, 7, 9, 10, 12],
+    "Hexatonic-Whole-Tone": [0, 2, 4, 6, 8, 10, 12],
+    "Hexatonic-Blues": [0, 3, 5, 6, 7, 10, 12],
+    "Pentatonic": [0, 2, 4, 7, 9, 12],
+    "Pentatonic-Blues": [0, 2, 3, 4, 7, 9, 12],
+    "Neapolitan-Major": [0, 1, 3, 5, 7, 9, 11, 12],
+    "Neapolitan-Minor": [0, 1, 3, 5, 7, 8, 11, 12],
+    "Flamenco": [0, 1, 4, 5, 7, 8, 11, 12], 
+    "Ionian": [0, 2, 4, 5, 7, 9, 11, 12],
+    "Dorian": [0, 2, 4, 5, 7, 9, 10, 12],
+    "Phrygian": [0, 1, 3, 6, 7, 8, 10, 12],
+    "Lydian": [0, 2, 4, 6, 7, 9, 11, 12],
+    "Mixolydian": [0, 2, 4, 5, 7, 9, 10, 12],
+    "Aeolian": [0, 2, 3, 5, 7, 8, 10, 12],
+    "Locrian": [0, 1, 3, 5, 6, 8, 10, 12]
+}
