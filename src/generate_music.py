@@ -1,6 +1,7 @@
 import json
 from sys import argv
 import numpy as np
+import random
 from common import prepare_sequences, create_network, instruments, scales
 from music21.note import Note
 from music21.stream import Stream
@@ -59,15 +60,40 @@ def get_scale(name_scale):
         exit(-1)
     return scales[name_scale]
 
-def generate_midi(initial_note, notes, name_instrument):
+def pitch_into_scale(pitch, scale):
+    pivot_index = len(scale) // 2
+    pivot = scale[pivot_index]
+    if len(scale) <= 2:
+        if pitch == pivot or pitch == scale[pivot_index - 1]:
+            return pitch
+        else:
+            if len(scale) == 1:
+                return scale[0]
+            else:
+                if abs(scale[0] - pitch) < abs(scale[1] - pitch):
+                    return scale[0]
+                elif abs(scale[1] - pitch) < abs(scale[0] - pitch):
+                    return scale[1]
+                else:
+                    return scale[0] if bool(random.getrandbits(1)) else scale[1]
+    else:
+        if pitch <= pivot:
+            return normalize_pitch(pitch, scale[:pivot_index + 1])
+        else:
+            return normalize_pitch(pitch, scale[pivot_index:])
+
+def generate_midi(initial_note, notes, name_instrument, name_scale):
     stream = [get_instrument(name_instrument)]
-    pitch = initial_note.pitch.midi
+    scale = get_scale(name_scale)
+    initial_pitch = initial_note.pitch.midi
+    pitch = initial_pitch
     new_note = Note(pitch)
     new_note.quarterLength = notes[np.random.randint(0, len(notes))][1]
     stream.append(new_note)
 
     for note in notes:
-        pitch = normalize_pitch(pitch + note[0])
+        pitch = normalize_pitch(pitch + note[0], scale)
+        pitch = pitch_into_scale(pitch, scale)
         new_note = Note(pitch)
         new_note.quarterLength = note[1]
         stream.append(new_note)
