@@ -7,7 +7,7 @@ def calculate_pitch(pitch):
     if pitch == 0:
         return pitch
     if pitch % 12 == 0:
-        return pitch / int(sqrt(pitch**2)) * 12
+        return int(pitch / sqrt(pitch**2) * 12)
     return (- 12 if pitch < 0 else 0) + pitch % 12
 
 def calculate_duration(duration):

@@ -3,13 +3,16 @@ from sys import argv
 import numpy as np
 import random
 from common import prepare_sequences, create_network, instruments, scales
+from melody import calculate_pitch
 from music21.note import Note
 from music21.stream import Stream
 from music21 import instrument
+from math import sqrt
 
 def print_usage():
-    print("Usage: " + argv[0] + " <processed midis file> <neural networks weights> <initial note> <output midi file> <instrument>")
-    print("Available instruments: " + ", ".join(instruments.keys()))
+    print("Usage: " + argv[0] + " <processed midis file> <neural networks weights> <initial note> <output midi file> <instrument> <scale>")
+    print("\nAvailable instruments: " + ", ".join(instruments.keys()))
+    print("\nAvailable scales: " + ", ".join(scales.keys()))
 
 def generate_notes(model, network_input, unique_pitches, unique_durations):
     base = sequences[np.random.randint(0, len(sequences) - 1)]
@@ -78,9 +81,16 @@ def pitch_into_scale(pitch, scale):
                     return scale[0] if bool(random.getrandbits(1)) else scale[1]
     else:
         if pitch <= pivot:
-            return normalize_pitch(pitch, scale[:pivot_index + 1])
+            return pitch_into_scale(pitch, scale[:pivot_index + 1])
         else:
-            return normalize_pitch(pitch, scale[pivot_index:])
+            return pitch_into_scale(pitch, scale[pivot_index:])
+
+def calculate_positive_pitch(pitch):
+    if pitch == 0:
+        return pitch
+    if pitch % 12 == 0:
+        return int(pitch / sqrt(pitch**2) * 12)
+    return pitch % 12
 
 def generate_midi(initial_note, notes, name_instrument, name_scale):
     stream = [get_instrument(name_instrument)]
@@ -92,8 +102,11 @@ def generate_midi(initial_note, notes, name_instrument, name_scale):
     stream.append(new_note)
 
     for note in notes:
-        pitch = normalize_pitch(pitch + note[0], scale)
-        pitch = pitch_into_scale(pitch, scale)
+        pitch = normalize_pitch(pitch + note[0])
+        dif = pitch - initial_pitch
+        relative_pitch = calculate_pitch(dif)
+        relative_positive_pitch = calculate_positive_pitch(relative_pitch)
+        pitch += pitch_into_scale(relative_positive_pitch, scale) - relative_pitch
         new_note = Note(pitch)
         new_note.quarterLength = note[1]
         stream.append(new_note)
@@ -106,7 +119,7 @@ if len(argv) > 1 and (argv[1] == "-h" or argv[1] == "--help"):
     print_usage()
     exit()
 
-if len(argv) != 6:
+if len(argv) != 7:
     print("Wrong number of arguments")
     print_usage()
     exit()
@@ -117,6 +130,7 @@ with open(argv[1], "r") as input:
     initial_note = Note(argv[3])
     output_file = argv[4]
     name_instrument = argv[5]
+    name_scale = argv[6]
     melodies = json.loads(content)
 
     pitches = [note[0] for melody in melodies for note in melody]
@@ -129,6 +143,6 @@ with open(argv[1], "r") as input:
     network = create_network(sequences, output_size)
     network.load_weights(weights_file)
     notes = generate_notes(network, sequences, unique_pitches, unique_durations)
-    midi = generate_midi(initial_note, notes, name_instrument)
+    midi = generate_midi(initial_note, notes, name_instrument, name_scale)
     midi.write('midi', fp=output_file)
     print("Train network")
