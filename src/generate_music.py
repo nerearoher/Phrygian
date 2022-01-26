@@ -1,7 +1,7 @@
 import json
 from sys import argv
 import numpy as np
-from common import prepare_sequences, create_network, instruments
+from common import prepare_sequences, create_network, instruments, scales
 from music21.note import Note
 from music21.stream import Stream
 from music21 import instrument
@@ -51,6 +51,13 @@ def get_instrument(name_instrument):
         print("Available instruments: " + ", ".join(instruments.keys()))
         exit(-1)
     return instruments[name_instrument]
+
+def get_scale(name_scale):
+    if not name_scale in scales:
+        print("Invalid scale " + name_scale + ", check the list of available scales:")
+        print("Available scales: " + ", ".join(scales.keys()))
+        exit(-1)
+    return scales[name_scale]
 
 def generate_midi(initial_note, notes, name_instrument):
     stream = [get_instrument(name_instrument)]
