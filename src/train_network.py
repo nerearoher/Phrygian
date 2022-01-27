@@ -13,7 +13,7 @@ def train_network(network, sequences, outputs, weights_folder):
     )
     network.fit(sequences, outputs, epochs=8, callbacks=[checkpoint])
 
-def train(sequences_file, weights_folder)
+def train(sequences_file, weights_folder):
     with open(argv[1], "r") as input:
         content = input.read()
         melodies = json.loads(content)

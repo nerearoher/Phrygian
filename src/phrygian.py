@@ -45,7 +45,7 @@ def check_scale(scale):
 
 def generate_cli(args):
     if len(args) != 6 or args[0] in ["-h", "--help"]:
-        print_usage()
+        print_generate_usage()
         exit()
     check_instrument(args[4])
     check_scale(args[5])
