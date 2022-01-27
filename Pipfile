@@ -13,7 +13,3 @@ numpy = "*"
 
 [requires]
 python_version = "3.9"
-
-[scripts]
-process-midis = "python src/midi_processor.py MIDI_examples melodies"
-train = "python src/train_network.py melodies"
