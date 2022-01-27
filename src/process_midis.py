@@ -21,7 +21,7 @@ def read_melodies_from_file(file: str):
     return list(map(lambda part: Melody(part), score))
 
 def process(midi_folder, output_file):
-    midi_files = glob(midi_folder + "/**/*.mid") + glob(midi_folder + "/**/*.MID")
+    midi_files = glob(midi_folder + "/**/*.[Mm][Ii][Dd]", recursive=True)
 
     pool = Pool()
     unflattened_melodies = pool.imap_unordered(read_melodies_from_file, midi_files)

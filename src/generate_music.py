@@ -7,12 +7,12 @@ from music21.note import Note
 from music21.stream import Stream
 from math import sqrt
 
-def generate_notes(model, network_input, unique_pitches, unique_durations):
+def generate_notes(model, sequences, unique_pitches, unique_durations, notes_number):
     base = sequences[np.random.randint(0, len(sequences) - 1)]
     base = base.tolist()
 
     prediction_output = []
-    while len(prediction_output) < 100:
+    while len(prediction_output) < notes_number:
         input = np.reshape(base, (1, len(base), 1))
         prediction = model.predict(input, verbose=0)
 
@@ -23,6 +23,7 @@ def generate_notes(model, network_input, unique_pitches, unique_durations):
         base.insert(0, unique_pitches[pitch])
         base.insert(0, unique_durations[duration])
         base = base[:-2]
+        print(len(prediction_output), base)
         if len(prediction_output) > 3:
             if prediction_output[-3][0] == prediction_output[-2][0] == prediction_output[-1][0]:
                 base = sequences[np.random.randint(0, len(sequences) - 1)]
@@ -96,7 +97,7 @@ def generate_midi(initial_note, notes, instrument, scale):
     stream.show()
     return stream
 
-def generate(melodies, weights_file, output_file, initial_note, instrument, scale):
+def generate(melodies, weights_file, output_file, initial_note="a3", instrument="Piano", scale="Chromatic", notes_number=100):
     with open(melodies, "r") as input:
         melodies = json.loads(input.read())
         initial_note = Note(initial_note)
@@ -110,7 +111,7 @@ def generate(melodies, weights_file, output_file, initial_note, instrument, scal
 
         network = create_network(sequences, output_size)
         network.load_weights(weights_file)
-        notes = generate_notes(network, sequences, unique_pitches, unique_durations)
+        notes = generate_notes(network, sequences, unique_pitches, unique_durations, notes_number)
         midi = generate_midi(initial_note, notes, instrument, scale)
         midi.write('midi', fp=output_file)
         print("Music generated!")

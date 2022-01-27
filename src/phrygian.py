@@ -16,7 +16,7 @@ def process_cli(args):
 
 def print_train_usage():
     print("This subcommand takes a preprocessed file and trains a neural network")
-    print("Usage: " + argv[0] + " <processed midis file> <neural network weights folder>")
+    print("Usage: " + argv[0] + " train <processed midis file> <neural network weights folder>")
 
 def train_cli(args):
     if len(args) != 2 or args[0] in ["-h", "--help"]:
@@ -26,7 +26,7 @@ def train_cli(args):
 
 def print_generate_usage():
     print("This subcommand takes several arguments which uses to generate a midi file")
-    print("Usage: " + argv[0] + " <processed midis file> <neural networks weights> <output midi file> <initial note> <instrument> <scale>")
+    print("Usage: " + argv[0] + " generate <processed midis file> <neural networks weights> <output midi file> <initial note> <instrument> <scale>")
     print("\nAvailable instruments: " + ", ".join(instruments.keys()))
     print("\nAvailable scales: " + ", ".join(scales.keys()))
 
@@ -43,11 +43,14 @@ def check_scale(scale):
         exit(-1)
 
 def generate_cli(args):
-    if len(args) != 6 or args[0] in ["-h", "--help"]:
+    if len(args) < 3 or len(args) > 6 or args[0] in ["-h", "--help"]:
         print_generate_usage()
+        print(len(args) )
         exit()
-    check_instrument(args[4])
-    check_scale(args[5])
+    if len(args) > 4:
+        check_instrument(args[4])
+        if len(args) > 5:
+            check_scale(args[5])
     generate(*args)
 
 commands = {
