@@ -3,6 +3,7 @@ from process_midis import process
 from train_network import train
 from common import instruments, scales
 from generate_music import generate
+from re import match
 
 def print_process_usage():
     print("This subcommand processes a folder with midi files and produces a file with the results")
@@ -42,15 +43,24 @@ def check_scale(scale):
         print("Available scales: " + ", ".join(scales.keys()))
         exit(-1)
 
+def check_initial_note(note):
+    if not match("^[a-gA-G][#b-]?[1-7]$", note):
+        print("Invalid initial note " + scale + ", see the examples:")
+        print("Si        1st octave  ->   B1 or b1")
+        print("Re Sharp  4th octave  ->   D#4 or d#4")
+        print("Do Flat   7th octave  ->   C-7, c-7, Cb7 or cb7")
+
 def generate_cli(args):
     if len(args) < 3 or len(args) > 6 or args[0] in ["-h", "--help"]:
         print_generate_usage()
         print(len(args) )
         exit()
-    if len(args) > 4:
-        check_instrument(args[4])
-        if len(args) > 5:
-            check_scale(args[5])
+    if len(args) > 3:
+        check_initial_note(args[3])
+        if len(args) > 4:
+            check_instrument(args[4])
+            if len(args) > 5:
+                check_scale(args[5])
     generate(*args)
 
 commands = {
