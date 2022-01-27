@@ -1,5 +1,4 @@
 from sys import argv
-from glob import glob
 from process_midis import process
 from train_network import train
 from common import instruments, scales
@@ -21,7 +20,7 @@ def print_train_usage():
 
 def train_cli(args):
     if len(args) != 2 or args[0] in ["-h", "--help"]:
-        print_usage()
+        print_train_usage()
         exit()
     train(*args)
 

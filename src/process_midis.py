@@ -7,6 +7,7 @@ import json
 from music21 import converter
 from music21.note import Note, Rest
 from music21.chord import Chord
+from glob import glob
 
 from melody import Melody
 
