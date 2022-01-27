@@ -45,10 +45,11 @@ def check_scale(scale):
 
 def check_initial_note(note):
     if not match("^[a-gA-G][#b-]?[1-7]$", note):
-        print("Invalid initial note " + scale + ", see the examples:")
+        print("Invalid initial note " + note + ", see the examples:")
         print("Si        1st octave  ->   B1 or b1")
         print("Re Sharp  4th octave  ->   D#4 or d#4")
         print("Do Flat   7th octave  ->   C-7, c-7, Cb7 or cb7")
+        exit(-1)
 
 def generate_cli(args):
     if len(args) < 3 or len(args) > 6 or args[0] in ["-h", "--help"]:
