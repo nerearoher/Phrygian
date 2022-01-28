@@ -27,9 +27,22 @@ def train_cli(args):
 
 def print_generate_usage():
     print("This subcommand takes several arguments which uses to generate a midi file")
-    print("Usage: " + argv[0] + " generate <processed midis file> <neural networks weights> <output midi file> <initial note> <instrument> <scale>")
+    print("Usage: " + argv[0] + " generate <processed midis file> <neural networks weights> <output midi file>")
+    print("Optional arguments should be added at the end")
+    print("Initial pitch (Default A3): [(-p|--pitch) <pitch>] ")
+    print("Instrument (Default Piano): [(-i|--instrument) <instrument>]")
+    print("Scale (Default Chromatic): [(-s|--scale) <scale>] ")
+    print("Number of notes (Default 100): [(-n|--notes) <number of notes>] ")
     print("\nAvailable instruments: " + ", ".join(instruments.keys()))
     print("\nAvailable scales: " + ", ".join(scales.keys()))
+
+def check_initial_note(note):
+    if not match("^[a-gA-G][#b-]?[1-7]$", note):
+        print("Invalid initial note " + note + ", see the examples:")
+        print("Si        1st octave  ->   B1 or b1")
+        print("Re Sharp  4th octave  ->   D#4 or d#4")
+        print("Do Flat   7th octave  ->   C-7, c-7, Cb7 or cb7")
+        exit(-1)
 
 def check_instrument(instrument):
     if not instrument in instruments:
@@ -43,26 +56,31 @@ def check_scale(scale):
         print("Available scales: " + ", ".join(scales.keys()))
         exit(-1)
 
-def check_initial_note(note):
-    if not match("^[a-gA-G][#b-]?[1-7]$", note):
-        print("Invalid initial note " + note + ", see the examples:")
-        print("Si        1st octave  ->   B1 or b1")
-        print("Re Sharp  4th octave  ->   D#4 or d#4")
-        print("Do Flat   7th octave  ->   C-7, c-7, Cb7 or cb7")
-        exit(-1)
-
 def generate_cli(args):
-    if len(args) < 3 or len(args) > 6 or args[0] in ["-h", "--help"]:
+    if len(args) not in [3, 5, 7, 9, 11] or args[0] in ["-h", "--help"]:
         print_generate_usage()
-        print(len(args) )
         exit()
-    if len(args) > 3:
-        check_initial_note(args[3])
-        if len(args) > 4:
-            check_instrument(args[4])
-            if len(args) > 5:
-                check_scale(args[5])
-    generate(*args)
+    note = "A3"
+    instrument = "Piano"
+    scale = "Chromatic"
+    number_of_notes = "100"
+    optionals = args[3:]
+    for (option, value) in list(zip(optionals[::2], optionals[1::2])):
+        if option in ["-p", "--pitch"]:
+            check_initial_note(value)
+            note = value
+        elif option in ["-i", "--instrument"]:
+            check_instrument(value)
+            instrument = value
+        elif option in ["-s", "--scale"]:
+            check_scale(value)
+            scale = value
+        elif option in ["-n", "--notes"]:
+            number_of_notes = value
+        else:
+            print_generate_usage()
+            exit(-1)
+    generate(*args[:3], note, instrument, scale, int(number_of_notes))
 
 commands = {
     "process": process_cli,

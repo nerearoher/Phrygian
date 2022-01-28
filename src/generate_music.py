@@ -97,7 +97,9 @@ def generate_midi(initial_note, notes, instrument, scale):
     stream.show()
     return stream
 
-def generate(melodies, weights_file, output_file, initial_note="a3", instrument="Piano", scale="Chromatic", notes_number=100):
+def generate(melodies, weights_file, output_file, initial_note="a3",
+    instrument="Piano", scale="Chromatic", notes_number=100
+):
     with open(melodies, "r") as input:
         melodies = json.loads(input.read())
         initial_note = Note(initial_note)
