@@ -1,6 +1,6 @@
 from os import path
 import json
-from keras.callbacks import ModelCheckpoint
+from tensorflow.keras.callbacks import ModelCheckpoint
 from common import prepare_sequences, create_network
 
 def train_network(network, sequences, outputs, weights_folder):

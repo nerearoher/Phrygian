@@ -1,10 +1,12 @@
 
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QDialog, QLabel, QFileDialog, QTextEdit
+from PyQt5.QtGui import QPalette
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QDialog, QLabel, QFileDialog, QTextEdit, QComboBox
 from PyQt5 import QtCore
-
-from process_midis import process
-from train_network import train
-from generate_music import generate
+from PyQt5.QtCore import Qt
+# from common_gui import set_midi_folder
+# from process_midis import process
+# from train_network import train
+# from generate_music import generate
 
 PROCESS_STRING = 'Process MIDIs melodies'
 TRAIN_STRING = 'Train neuronal network'
@@ -20,7 +22,9 @@ def on_process_button_clicked():
 
   def set_output_file():
     # TODO save function
-    output_file.setText(QFileDialog.getOpenFileName(None, 'Single File', '', '*.mid;;*.MID'))
+    # ESTA MAL
+    # saveName, Filter = QFileDialog.getSaveFileName(None, "Save a Material property file", TargetDir, "*.FCMat")
+    output_file.setText(str(QFileDialog.getSaveFileName(None, 'Save File', '', '*.mid;;*.MID')))
 
   midi_label = QLabel('Select a folder with midi files to extract melodies')
   midi_layout = QHBoxLayout()
@@ -50,7 +54,23 @@ def on_train_button_clicked():
   layout = QVBoxLayout()
   dialog.setWindowTitle(TRAIN_STRING)
 
-  file_name, _ = QFileDialog.getOpenFileName(None, 'Single File', '', '*.mid;;*.MID')
+  def set_processed_midi():
+    processed_midi_file.setText(str(QFileDialog.getOpenFileName (None, 'Select processed midi file')))
+
+  processed_midi_label = QLabel('Select a processed midi file')
+  processed_midi_layout = QHBoxLayout()
+  processed_midi_file = QTextEdit()
+  processed_midi_button = QPushButton("Browser...")
+  processed_midi_layout.addWidget(processed_midi_file)
+  processed_midi_layout.addWidget(processed_midi_button)
+  processed_midi_button.clicked.connect(set_processed_midi)
+  layout.addWidget(processed_midi_label)
+  layout.addLayout(processed_midi_layout)
+
+
+  weights_folder = QTextEdit()
+  weights_folder.setText(str(QFileDialog.getExistingDirectory(None, "Select Directory")))
+
   label = QLabel('You clicked the train button!')
   layout.addWidget(label)
 
@@ -69,6 +89,11 @@ def on_generate_button_clicked():
   dialog.exec()
 
 app = QApplication([])
+app.setStyle('Fusion')
+palette = QPalette()
+palette.setColor(QPalette.ButtonText, Qt.blue)
+app.setPalette(palette)
+
 window = QWidget()
 window.setWindowTitle("Phrygian")
 layout = QVBoxLayout()
