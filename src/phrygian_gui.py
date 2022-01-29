@@ -1,6 +1,3 @@
-
-from tkinter import Button
-from PyQt5.QtGui import QPalette
 from PyQt5.QtWidgets import (
   QApplication, QWidget, 
   QPushButton, QVBoxLayout, 
@@ -9,9 +6,10 @@ from PyQt5.QtWidgets import (
   QTextEdit, QComboBox, 
   QFormLayout, QLineEdit, 
   QGridLayout, QTextBrowser,
-  QSlider, QSpinBox
+  QLayout, QSpinBox
 )
 from PyQt5.QtCore import Qt
+from css import PHRYGIAN_GUI
 
 # from process_midis import process
 # from train_network import train
@@ -142,7 +140,9 @@ INSTRUMENTS = {
 
 def on_process_button_clicked():
   dialog = QDialog()
+  dialog.setStyleSheet(PHRYGIAN_GUI)
   layout = QFormLayout()
+  layout.setObjectName('QFormLayout')
   dialog.setWindowTitle(PROCESS_STRING)
 
   def set_midi_folder():
@@ -280,17 +280,18 @@ def on_train_button_clicked():
   dialog.exec()
 
 app = QApplication([])
-app.setStyle('Fusion')
-palette = QPalette()
-palette.setColor(QPalette.ButtonText, Qt.blue)
-app.setPalette(palette)
 
 window = QWidget()
 window.setWindowTitle("Phrygian")
-layout = QHBoxLayout()
+window.setStyleSheet(PHRYGIAN_GUI)
+layout = QVBoxLayout()
+layout.setSizeConstraint(QLayout.SetFixedSize)
+
+label_welcome = QLabel('WELCOME TO PHRYGIAN')
+layout.addWidget(label_welcome)
+label_welcome.setObjectName('label_welcome')
 
 process_button = QPushButton(PROCESS_STRING)
-# process_button.setGeometry(QtCore.QRect(140, 50, 75, 23)) no me funciona no sé por qué TODO
 train_button = QPushButton(TRAIN_STRING)
 generate_button = QPushButton(GENERATE_STRING)
 
@@ -303,5 +304,6 @@ train_button.clicked.connect(on_train_button_clicked)
 generate_button.clicked.connect(on_generate_button_clicked)
 
 window.setLayout(layout)
+window.setGeometry(100, 100, 100, 100)
 window.show()
 app.exec()
