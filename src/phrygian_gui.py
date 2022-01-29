@@ -146,7 +146,9 @@ def on_process_button_clicked():
   dialog.setWindowTitle(PROCESS_STRING)
 
   def set_midi_folder():
-    line_edit_midi_folder.setText(QFileDialog.getExistingDirectory(None, "Select Directory")[0])
+    directory_list = QFileDialog.getExistingDirectory(None, "Select MIDI input Directory")
+    if directory_list:
+      line_edit_midi_folder.setText(directory_list[0])
 
   def set_output_file():
     line_edit_output_file.setText(QFileDialog.getSaveFileName(None, 'Save File', '', '*.mid;;*.MID')[0])
@@ -194,8 +196,7 @@ def on_generate_button_clicked():
 
   label_processed_midi = QLabel('Select a processed midi file')
   label_weights = QLabel('Select a folder to save the generated melodies')
-  label_pitch = QLabel('Select the pitch ')
-  label_scale = QLabel('Select the scale')
+  label_note = QLabel('Select the initial note')
   label_notes = QLabel('Select the number of notes')
   label_instruments = QLabel('Select the instrument')
   label_output_midi = QLabel('Write output midi file')
@@ -205,21 +206,28 @@ def on_generate_button_clicked():
 
   combo_box_pitch = QComboBox()
   combo_box_pitch.addItems([chr(i) for i in range(ord('A'), ord('G') + 1)])
-  layout.addWidget(combo_box_pitch)
-  layout.addRow(label_pitch, combo_box_pitch)
+
+  combo_box_accidental = QComboBox()
+  combo_box_accidental.addItems(['', '♯', '♭'])
+
+  spin_box_scale = QSpinBox()
+  spin_box_scale.setRange(1, 8)
+  layout.addWidget(spin_box_scale)
+
+  note_layout = QHBoxLayout()
+  note_layout.addWidget(label_note)
+  note_layout.addWidget(combo_box_pitch)
+  note_layout.addWidget(combo_box_accidental)
+  note_layout.addWidget(spin_box_scale)
+  layout.addRow(note_layout)
 
   combo_box_instruments = QComboBox()
   combo_box_instruments.addItems(INSTRUMENTS.keys())
   layout.addWidget(combo_box_instruments)
   layout.addRow(label_instruments, combo_box_instruments)
 
-  spin_box_scale = QSpinBox()
-  spin_box_scale.setRange(1, 8)
-  layout.addWidget(spin_box_scale)
-  layout.addRow(label_scale, spin_box_scale)
-
   spin_box_notes = QSpinBox()
-  spin_box_notes.setRange(2, 9999)
+  spin_box_notes.setMinimum(2)
   layout.addWidget(spin_box_notes)
   layout.addRow(label_notes, spin_box_notes)
 
@@ -256,7 +264,9 @@ def on_train_button_clicked():
     line_edit_processed_midi.setText(QFileDialog.getOpenFileName (None, 'Select processed midi file')[0])
 
   def set_weights_folder():
-    line_edit_weights_folder.setText(QFileDialog.getExistingDirectory(None, "Select Directory")[0])
+    directory_list = QFileDialog.getExistingDirectory(None, "Select weights Directory")
+    if directory_list:
+      line_edit_midi_folder.setText(directory_list[0])
 
   label_processed_midi = QLabel('Select processed midi')
   label_wights_folder = QLabel('Select neural network weights folder')
