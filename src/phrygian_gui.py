@@ -175,7 +175,7 @@ def on_process_button_clicked():
   dialog.setLayout(layout)
   dialog.exec()
 
-def on_train_button_clicked():
+def on_generate_button_clicked():
   dialog = QDialog()
   layout = QFormLayout()
   dialog.setWindowTitle(TRAIN_STRING)
@@ -242,13 +242,38 @@ def on_train_button_clicked():
   dialog.setLayout(layout)
   dialog.exec()
 
-def on_generate_button_clicked():
+def on_train_button_clicked():
   dialog = QDialog()
-  layout = QVBoxLayout()
-  dialog.setWindowTitle(GENERATE_STRING)
+  layout = QFormLayout()
+  dialog.setWindowTitle(TRAIN_STRING)
 
-  label = QLabel('You clicked the generate button!')
-  layout.addWidget(label)
+  def set_processed_midi():
+    text_browser_processed_midi.setText(str(QFileDialog.getOpenFileName (None, 'Select processed midi file')))
+
+  def set_weights_folder():
+    text_browser_weights_folder.setText(str(QFileDialog.getExistingDirectory(None, "Select Directory")))
+
+  label_processed_midi = QLabel('Select processed midi')
+  label_wights_folder = QLabel('Select neural network weights folder')
+
+  browser_button_midi = QPushButton('Browser...')
+  browser_button_wights = QPushButton('Browser...')
+
+  text_browser_processed_midi = QTextBrowser()
+  text_browser_processed_midi.setAcceptRichText(True)
+  text_browser_processed_midi.setOpenExternalLinks(True)
+  browser_button_midi.pressed.connect(set_processed_midi)
+  layout.addWidget(text_browser_processed_midi)
+  layout.addRow(label_processed_midi, text_browser_processed_midi)
+  layout.addWidget(browser_button_midi)
+
+  text_browser_weights_folder = QTextBrowser()
+  text_browser_weights_folder.setAcceptRichText(True)
+  text_browser_weights_folder.setOpenExternalLinks(True)
+  browser_button_wights.pressed.connect(set_weights_folder)
+  layout.addWidget(text_browser_weights_folder)
+  layout.addRow(label_wights_folder, text_browser_weights_folder)
+  layout.addWidget(browser_button_wights)
 
   dialog.setLayout(layout)
   dialog.exec()
