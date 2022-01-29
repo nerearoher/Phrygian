@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import (
   QLabel, QFileDialog, 
   QTextEdit, QComboBox, 
   QFormLayout, QLineEdit, 
-  QGridLayout, QTextBrowser,
+  QGridLayout, QLineEdit,
   QLayout, QSpinBox
 )
 from PyQt5.QtCore import Qt
@@ -146,10 +146,10 @@ def on_process_button_clicked():
   dialog.setWindowTitle(PROCESS_STRING)
 
   def set_midi_folder():
-    text_browser_midi_folder.setText(str(QFileDialog.getExistingDirectory(None, "Select Directory")))
+    line_edit_midi_folder.setText(QFileDialog.getExistingDirectory(None, "Select Directory")[0])
 
   def set_output_file():
-    text_browser_output_file.setText(str(QFileDialog.getSaveFileName(None, 'Save File', '', '*.mid;;*.MID')))
+    line_edit_output_file.setText(QFileDialog.getSaveFileName(None, 'Save File', '', '*.mid;;*.MID')[0])
 
   label_midi_folder = QLabel('Select a midi folder')
   label_output_midi = QLabel('File to save the generated melodies')
@@ -161,22 +161,20 @@ def on_process_button_clicked():
   browser_button_output = QPushButton('Browser...')
   browser_button_output.setStyleSheet(PHRYGIAN_GUI)
 
-  text_browser_midi_folder = QTextBrowser()
-  text_browser_midi_folder.setObjectName('QTextBrowser')
-  text_browser_midi_folder.setAcceptRichText(True)
-  text_browser_midi_folder.setOpenExternalLinks(True)
+  line_edit_midi_folder = QLineEdit()
+  line_edit_midi_folder.setObjectName('QLineEdit')
+  line_edit_midi_folder.setReadOnly(True)
   browser_button_midi.pressed.connect(set_midi_folder)
-  layout.addWidget(text_browser_midi_folder)
-  layout.addRow(label_midi_folder, text_browser_midi_folder)
+  layout.addWidget(line_edit_midi_folder)
+  layout.addRow(label_midi_folder, line_edit_midi_folder)
   layout.addWidget(browser_button_midi)
 
-  text_browser_output_file = QTextBrowser()
-  text_browser_output_file.setObjectName('QTextBrowser')
-  text_browser_output_file.setAcceptRichText(True)
-  text_browser_output_file.setOpenExternalLinks(True)
+  line_edit_output_file = QLineEdit()
+  line_edit_output_file.setObjectName('QLineEdit')
+  line_edit_output_file.setReadOnly(True)
   browser_button_output.pressed.connect(set_output_file)
-  layout.addWidget(text_browser_output_file)
-  layout.addRow(label_output_midi, text_browser_output_file)
+  layout.addWidget(line_edit_output_file)
+  layout.addRow(label_output_midi, line_edit_output_file)
   layout.addWidget(browser_button_output)
 
   dialog.setLayout(layout)
@@ -189,10 +187,10 @@ def on_generate_button_clicked():
   dialog.setWindowTitle(GENERATE_STRING)
 
   def set_processed_midi():
-    text_browser_processed_midi.setText(str(QFileDialog.getOpenFileName (None, 'Select processed midi file')))
+    line_edit_processed_midi.setText(QFileDialog.getOpenFileName (None, 'Select processed midi file')[0])
 
   def set_weights_file():
-    text_browser_weights.setText(str(QFileDialog.getOpenFileName(None, "Select neural networks weights")))
+    line_edit_weights.setText(QFileDialog.getOpenFileName(None, "Select neural networks weights")[0])
 
   label_processed_midi = QLabel('Select a processed midi file')
   label_weights = QLabel('Select a folder to save the generated melodies')
@@ -225,20 +223,18 @@ def on_generate_button_clicked():
   layout.addWidget(spin_box_notes)
   layout.addRow(label_notes, spin_box_notes)
 
-  text_browser_processed_midi = QTextBrowser()
-  text_browser_processed_midi.setAcceptRichText(True)
-  text_browser_processed_midi.setOpenExternalLinks(True)
+  line_edit_processed_midi = QLineEdit()
+  line_edit_processed_midi.setReadOnly(True)
   browser_button_midi.pressed.connect(set_processed_midi)
-  layout.addWidget(text_browser_processed_midi)
-  layout.addRow(label_processed_midi, text_browser_processed_midi)
+  layout.addWidget(line_edit_processed_midi)
+  layout.addRow(label_processed_midi, line_edit_processed_midi)
   layout.addWidget(browser_button_midi)
 
-  text_browser_weights = QTextBrowser()
-  text_browser_weights.setAcceptRichText(True)
-  text_browser_weights.setOpenExternalLinks(True)
+  line_edit_weights = QLineEdit()
+  line_edit_weights.setReadOnly(True)
   browser_button_nw.pressed.connect(set_weights_file)
-  layout.addWidget(text_browser_weights)
-  layout.addRow(label_weights, text_browser_weights)
+  layout.addWidget(line_edit_weights)
+  layout.addRow(label_weights, line_edit_weights)
   layout.addWidget(browser_button_nw)
 
   output_midi_file  = QLineEdit()
@@ -257,10 +253,10 @@ def on_train_button_clicked():
   dialog.setWindowTitle(TRAIN_STRING)
 
   def set_processed_midi():
-    text_browser_processed_midi.setText(str(QFileDialog.getOpenFileName (None, 'Select processed midi file')))
+    line_edit_processed_midi.setText(QFileDialog.getOpenFileName (None, 'Select processed midi file')[0])
 
   def set_weights_folder():
-    text_browser_weights_folder.setText(str(QFileDialog.getExistingDirectory(None, "Select Directory")))
+    line_edit_weights_folder.setText(QFileDialog.getExistingDirectory(None, "Select Directory")[0])
 
   label_processed_midi = QLabel('Select processed midi')
   label_wights_folder = QLabel('Select neural network weights folder')
@@ -268,20 +264,18 @@ def on_train_button_clicked():
   browser_button_midi = QPushButton('Browser...')
   browser_button_wights = QPushButton('Browser...')
 
-  text_browser_processed_midi = QTextBrowser()
-  text_browser_processed_midi.setAcceptRichText(True)
-  text_browser_processed_midi.setOpenExternalLinks(True)
+  line_edit_processed_midi = QLineEdit()
+  line_edit_processed_midi.setReadOnly(True)
   browser_button_midi.pressed.connect(set_processed_midi)
-  layout.addWidget(text_browser_processed_midi)
-  layout.addRow(label_processed_midi, text_browser_processed_midi)
+  layout.addWidget(line_edit_processed_midi)
+  layout.addRow(label_processed_midi, line_edit_processed_midi)
   layout.addWidget(browser_button_midi)
 
-  text_browser_weights_folder = QTextBrowser()
-  text_browser_weights_folder.setAcceptRichText(True)
-  text_browser_weights_folder.setOpenExternalLinks(True)
+  line_edit_weights_folder = QLineEdit()
+  line_edit_weights_folder.setReadOnly(True)
   browser_button_wights.pressed.connect(set_weights_folder)
-  layout.addWidget(text_browser_weights_folder)
-  layout.addRow(label_wights_folder, text_browser_weights_folder)
+  layout.addWidget(line_edit_weights_folder)
+  layout.addRow(label_wights_folder, line_edit_weights_folder)
   layout.addWidget(browser_button_wights)
 
   dialog.setLayout(layout)
