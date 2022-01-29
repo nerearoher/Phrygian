@@ -153,11 +153,16 @@ def on_process_button_clicked():
 
   label_midi_folder = QLabel('Select a midi folder')
   label_output_midi = QLabel('File to save the generated melodies')
+  label_midi_folder.setObjectName('QLabelRow')
+  label_output_midi.setObjectName('QLabelRow')
 
   browser_button_midi = QPushButton('Browser...')
+  browser_button_midi.setStyleSheet(PHRYGIAN_GUI)
   browser_button_output = QPushButton('Browser...')
+  browser_button_output.setStyleSheet(PHRYGIAN_GUI)
 
   text_browser_midi_folder = QTextBrowser()
+  text_browser_midi_folder.setObjectName('QTextBrowser')
   text_browser_midi_folder.setAcceptRichText(True)
   text_browser_midi_folder.setOpenExternalLinks(True)
   browser_button_midi.pressed.connect(set_midi_folder)
@@ -166,6 +171,7 @@ def on_process_button_clicked():
   layout.addWidget(browser_button_midi)
 
   text_browser_output_file = QTextBrowser()
+  text_browser_output_file.setObjectName('QTextBrowser')
   text_browser_output_file.setAcceptRichText(True)
   text_browser_output_file.setOpenExternalLinks(True)
   browser_button_output.pressed.connect(set_output_file)
@@ -179,6 +185,7 @@ def on_process_button_clicked():
 def on_generate_button_clicked():
   dialog = QDialog()
   layout = QFormLayout()
+  layout.setObjectName('QFormLayout')
   dialog.setWindowTitle(GENERATE_STRING)
 
   def set_processed_midi():
@@ -246,6 +253,7 @@ def on_generate_button_clicked():
 def on_train_button_clicked():
   dialog = QDialog()
   layout = QFormLayout()
+  layout.setObjectName('QFormLayout')
   dialog.setWindowTitle(TRAIN_STRING)
 
   def set_processed_midi():
@@ -304,6 +312,5 @@ train_button.clicked.connect(on_train_button_clicked)
 generate_button.clicked.connect(on_generate_button_clicked)
 
 window.setLayout(layout)
-window.setGeometry(100, 100, 100, 100)
 window.show()
 app.exec()
