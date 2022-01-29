@@ -37,16 +37,12 @@ def prepare_sequences(melodies, unique_pitches, unique_durations):
 
 def create_network(sequences, output_size):
     network = Sequential()
-    network.add(LSTM(512, 
-        input_shape=(SEQUENCE_LENGTH * 2, 1),
-        return_sequences=True, 
-        recurrent_dropout=0.3
+    network.add(LSTM(128, 
+        input_shape=(SEQUENCE_LENGTH * 2, 1)
     ))
-    network.add(LSTM(512))
     network.add(BatchNorm())
     network.add(Dropout(0.3))
     network.add(Dense(output_size))
-    network.add(Activation('softmax'))
     network.compile(loss='categorical_crossentropy', optimizer='rmsprop')
 
     return network
