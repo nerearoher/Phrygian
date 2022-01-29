@@ -1,4 +1,5 @@
 
+from tkinter import Button
 from PyQt5.QtGui import QPalette
 from PyQt5.QtWidgets import (
   QApplication, QWidget, 
@@ -139,38 +140,38 @@ INSTRUMENTS = {
     "Xylophone": instrument.Xylophone()
 }
 
-
-
 def on_process_button_clicked():
   dialog = QDialog()
-  layout = QVBoxLayout()
+  layout = QFormLayout()
   dialog.setWindowTitle(PROCESS_STRING)
 
   def set_midi_folder():
-    midi_folder.setText(str(QFileDialog.getExistingDirectory(None, "Select Directory")))
+    text_browser_midi_folder.setText(str(QFileDialog.getExistingDirectory(None, "Select Directory")))
 
   def set_output_file():
-    output_file.setText(str(QFileDialog.getSaveFileName(None, 'Save File', '', '*.mid;;*.MID')))
+    text_browser_output_file.setText(str(QFileDialog.getSaveFileName(None, 'Save File', '', '*.mid;;*.MID')))
 
-  midi_label = QLabel('Select a folder with midi files to extract melodies')
-  midi_layout = QHBoxLayout()
-  midi_folder = QTextEdit()
-  midi_button = QPushButton("Browser...")
-  midi_layout.addWidget(midi_folder)
-  midi_layout.addWidget(midi_button)
-  midi_button.clicked.connect(set_midi_folder)
-  layout.addWidget(midi_label)
-  layout.addLayout(midi_layout)
+  label_midi_folder = QLabel('Select a midi folder')
+  label_output_midi = QLabel('File to save the generated melodies')
 
-  output_label = QLabel('Select a folder to save the generated melodies')
-  output_layout = QHBoxLayout()
-  output_file = QTextEdit()
-  output_button = QPushButton("Browser...")
-  output_layout.addWidget(output_file)
-  output_layout.addWidget(output_button)
-  output_button.clicked.connect(set_output_file)
-  layout.addWidget(output_label)
-  layout.addLayout(output_layout)
+  browser_button_midi = QPushButton('Browser...')
+  browser_button_output = QPushButton('Browser...')
+
+  text_browser_midi_folder = QTextBrowser()
+  text_browser_midi_folder.setAcceptRichText(True)
+  text_browser_midi_folder.setOpenExternalLinks(True)
+  browser_button_midi.pressed.connect(set_midi_folder)
+  layout.addWidget(text_browser_midi_folder)
+  layout.addRow(label_midi_folder, text_browser_midi_folder)
+  layout.addWidget(browser_button_midi)
+
+  text_browser_output_file = QTextBrowser()
+  text_browser_output_file.setAcceptRichText(True)
+  text_browser_output_file.setOpenExternalLinks(True)
+  browser_button_output.pressed.connect(set_output_file)
+  layout.addWidget(text_browser_output_file)
+  layout.addRow(label_output_midi, text_browser_output_file)
+  layout.addWidget(browser_button_output)
 
   dialog.setLayout(layout)
   dialog.exec()
@@ -178,7 +179,7 @@ def on_process_button_clicked():
 def on_generate_button_clicked():
   dialog = QDialog()
   layout = QFormLayout()
-  dialog.setWindowTitle(TRAIN_STRING)
+  dialog.setWindowTitle(GENERATE_STRING)
 
   def set_processed_midi():
     text_browser_processed_midi.setText(str(QFileDialog.getOpenFileName (None, 'Select processed midi file')))
