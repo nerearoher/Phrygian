@@ -20,8 +20,8 @@ def generate_notes(model, sequences, unique_pitches, unique_durations, notes_num
         duration = np.argmax(prediction[0][len(unique_durations):])
         prediction_output.append([unique_pitches[pitch], unique_durations[duration]])
 
-        base.insert(0, unique_pitches[pitch])
-        base.insert(0, unique_durations[duration])
+        base.insert(0, pitch)
+        base.insert(0, duration)
         base = base[:-2]
         if len(prediction_output) > 3:
             if prediction_output[-3][0] == prediction_output[-2][0] == prediction_output[-1][0]:
@@ -93,7 +93,7 @@ def generate_midi(initial_note, notes, instrument, scale):
         stream.append(new_note)
     
     dif = (pitch - initial_pitch) % 12
-    pitch -= dif + (0 if dif > 6 else - 12)
+    pitch -= dif + (-12 if dif > 6 else 0)
     new_note = Note(pitch)
     new_note.quarterLength = 4
     stream.append(new_note)
