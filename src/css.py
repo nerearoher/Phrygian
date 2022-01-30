@@ -8,6 +8,7 @@ GREY_MIST = '#E8E8E8'
 PHRYGIAN_GUI = f"""
 * {{
     color: {GREY_SHADOW};
+    font-family: serif;
     background: {GREY_MIST};
     text-align:center;
 }}
@@ -33,7 +34,7 @@ QDialogButtonBox QPushButton {{
     border-radius: 10px;
     font: bold 15px;
     padding: 5px;
-    width: 80px;
+    width: 100px;
 	height: 25px;
     text-align:center;
 }}
