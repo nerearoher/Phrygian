@@ -189,6 +189,7 @@ class GenerationWindow(QDialog):
     self.processed_midi_input.setReadOnly(True)
     form_layout.addRow(label_processed_midi, self.processed_midi_input)
     browser_button_midi = QPushButton('Browser...')
+    browser_button_midi.setObjectName('BrowserButton')
     browser_button_midi.pressed.connect(lambda: self.processed_midi_input.setText(
       QFileDialog.getOpenFileName(None, 'Select processed midi file (melodies)')[0]
     ))
@@ -199,6 +200,7 @@ class GenerationWindow(QDialog):
     self.weights_input.setReadOnly(True)
     form_layout.addRow(label_weights, self.weights_input)
     browser_button_weights = QPushButton('Browser...')
+    browser_button_weights.setObjectName('BrowserButton')
     browser_button_weights.pressed.connect(lambda: self.weights_input.setText(
       QFileDialog.getOpenFileName(None, "Select neural networks weights")[0]
     ))
@@ -209,6 +211,7 @@ class GenerationWindow(QDialog):
     self.output_file_input.setReadOnly(True)
     form_layout.addRow(label_output_midi, self.output_file_input)
     browser_button_output = QPushButton('Browser...')
+    browser_button_output.setObjectName('BrowserButton')
     browser_button_output.pressed.connect(lambda: self.output_file_input.setText(
       QFileDialog.getSaveFileName(None, 'Save output midi File', '', '*.mid;;*.MID')[0]
     ))

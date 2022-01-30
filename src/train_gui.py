@@ -28,6 +28,7 @@ class TrainWindow(QDialog):
     form_layout.addRow(label_processed_midi, self.processed_midi_input)
 
     browser_button_midi = QPushButton('Browser...')
+    browser_button_midi.setObjectName('BrowserButton')
     browser_button_midi.pressed.connect(self.set_processed_midi)
     form_layout.addWidget(browser_button_midi)
 
@@ -37,6 +38,7 @@ class TrainWindow(QDialog):
     form_layout.addRow(label_weights_folder, self.weight_folder_input)
 
     browser_button_wights = QPushButton('Browser...')
+    browser_button_wights.setObjectName('BrowserButton')
     browser_button_wights.pressed.connect(self.set_weights_folder)
     form_layout.addWidget(browser_button_wights)
 

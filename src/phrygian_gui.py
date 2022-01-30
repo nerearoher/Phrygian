@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import (
   QVBoxLayout, QLabel, QLayout, QSpinBox,
 )
 from PyQt5.QtGui import QPixmap, QIcon
+from PyQt5.QtCore import Qt
 from css import PHRYGIAN_GUI
 from generate_gui import GenerationWindow
 from train_gui import TrainWindow
@@ -30,7 +31,7 @@ layout.setSizeConstraint(QLayout.SetFixedSize)
 label_welcome = QLabel()
 image = QPixmap(path_image)
 label_welcome.setPixmap(image)
-layout.addWidget(label_welcome)
+layout.addWidget(label_welcome, alignment = Qt.AlignCenter)
 
 process_button = QPushButton(PROCESS_STRING)
 train_button = QPushButton(TRAIN_STRING)

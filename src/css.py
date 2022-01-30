@@ -20,8 +20,21 @@ QPushButton {{
     border-radius: 10px;
     font: bold 18px;
     padding: 5px;
-    width: 100px;
-	height: 80px;
+    width: 600px;
+	height: 40px;
+    text-align:center;
+}}
+
+QDialogButtonBox QPushButton {{
+    color: black;
+    background-color: {BROWN};
+    border-width: 2px;
+    border-width: 10px;
+    border-radius: 10px;
+    font: bold 15px;
+    padding: 5px;
+    width: 80px;
+	height: 25px;
     text-align:center;
 }}
 
@@ -53,6 +66,38 @@ QPushButton:pressed {{
     padding: 2px;
 }}
 
+#BrowserButton {{
+    color: black;
+    background-color: {BROWN};
+    border-width: 2px;
+    border-width: 10px;
+    border-radius: 10px;
+    font: bold 15px;
+    padding: 5px;
+    width: 600px;
+	height: 25px;
+    text-align:center;
+}}
+
+#BrowserButton:hover {{
+    background: {BROWN_MIST};
+    color: {RED_AUTUM};
+    font: bold 15px;
+    border-radius: 10px;
+    border :2px solid ;
+    border-top-color : {RED_AUTUM};
+    border-left-color : {RED_AUTUM};
+    border-right-color : {RED_AUTUM};
+    border-bottom-color : {RED_AUTUM};
+    text-align:center;
+}}
+
+#BrowserButton:pressed {{
+    text-align:center;
+    background: {RED_AUTUM};
+    color: {GREY_SHADOW}
+}}
+
 QLabel {{
     text-align:center;
     color: #2A3132;
@@ -61,4 +106,40 @@ QLabel {{
     border-radius: 4px;
     padding: 2px;
 }}
+
+QLineEdit {{  
+    border: 0px solid; 
+    background-color: {0}; 
+    color: black;
+    font-size: 15px;
+    width: 700px;
+	height: 30px;
+}} 
+
+QLineEdit:hover {{ 
+    border: 1px solid #763626;
+}}
+
+QComboBox {{
+    border: 0px solid; 
+    background-color: {0}; 
+    color: black;
+    font-size: 18px;
+}}
+
+QComboBox:hover {{ 
+    border: 1px solid #763626; 
+}}
+
+QSpinBox {{
+    border: 0px solid; 
+    background-color: {0}; 
+    color: black;
+    font-size: 18px;
+}}
+
+QSpinBox:hover {{ 
+    border: 1px solid #763626; 
+}}
+
 """

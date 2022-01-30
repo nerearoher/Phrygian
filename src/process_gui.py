@@ -30,6 +30,7 @@ class ProcessWindow(QDialog):
       form_layout.addRow(label_midi_folder, self.midi_folder_input)
 
       browser_button_midi = QPushButton('Browser...')
+      browser_button_midi.setObjectName('BrowserButton')
       browser_button_midi.pressed.connect(self.set_midi_folder)
       form_layout.addWidget(browser_button_midi)
 
@@ -41,6 +42,7 @@ class ProcessWindow(QDialog):
       form_layout.addRow(label_output_midi, self.output_file_input)
 
       browser_button_output = QPushButton('Browser...')
+      browser_button_output.setObjectName('BrowserButton')
       browser_button_output.pressed.connect(self.set_output_file)
       form_layout.addWidget(browser_button_output)
 
