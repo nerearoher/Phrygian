@@ -8,6 +8,12 @@ from common import instruments, scales
 from common_gui import accept_and_finish
 from generate_music import generate
 
+symbol_to_accidental = {
+  ' ' : '',
+  '♯': '#',
+  '♭': '-'
+}
+
 class NoteInput(QHBoxLayout):
   def __init__(self):
     super().__init__()
@@ -16,7 +22,7 @@ class NoteInput(QHBoxLayout):
     self.addWidget(self.pitch)
 
     self.symbol = QComboBox()
-    self.symbol.addItems(['', '♯', '♭'])
+    self.symbol.addItems([' ', '♯', '♭'])
     self.addWidget(self.symbol)
 
     self.scale = QSpinBox()
@@ -26,7 +32,7 @@ class NoteInput(QHBoxLayout):
 
   def get_note(self):
     return str(self.pitch.currentText()) + \
-      str(self.symbol.currentText()) + \
+      str(symbol_to_accidental[self.symbol.currentText()]) + \
       str(self.scale.value())
 
 class GenerationWindow(QDialog):
