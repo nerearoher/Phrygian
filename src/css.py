@@ -19,7 +19,7 @@ QPushButton {{
     border-radius: 10px;
     font: bold 18px;
     padding: 5px;
-    width: 10px;
+    width: 100px;
 	height: 80px;
     text-align:center;
 }}
@@ -60,29 +60,4 @@ QLabel {{
     border-radius: 4px;
     padding: 2px;
 }}
-
-#QFormLayout {{
-    text-align:center;
-    color: {GREY_SHADOW};
-    background-color: {BLUE_MIST_2};
-}}
-
-#QTextBrowser {{
-    text-align:center;
-    color: {GREY_SHADOW};
-    background-color: white;
-    width: 13px;
-    height: 13px;
-}}
-
-#QLabelRow {{
-    text-align:center;
-    color: #2A3132;
-    font: 15px;
-    border: 2px;
-    border-radius: 4px;
-    padding: 2px;
-}}
-
-
 """

@@ -1,5 +1,0 @@
-BLUE_MIST = '#90AFC5'
-BLUE_STONE = '#336B87'
-GREY_SHADOW = '#2A3132'
-RED_AUTUM = '#763626'
---------------------------
