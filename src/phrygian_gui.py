@@ -1,7 +1,10 @@
+import pathlib
+from os import path
 from PyQt5.QtWidgets import (
   QApplication, QWidget, QPushButton,
   QVBoxLayout, QLabel, QLayout, QSpinBox,
 )
+from PyQt5.QtGui import QPixmap
 from css import PHRYGIAN_GUI
 from generate_gui import GenerationWindow
 from train_gui import TrainWindow
@@ -19,9 +22,12 @@ window.setStyleSheet(PHRYGIAN_GUI)
 layout = QVBoxLayout()
 layout.setSizeConstraint(QLayout.SetFixedSize)
 
-label_welcome = QLabel('WELCOME TO PHRYGIAN')
+path_abs = pathlib.Path(__file__).absolute().parent
+label_welcome = QLabel()
+path_image = path.join(path_abs, "logo.png")
+image = QPixmap(path_image)
+label_welcome.setPixmap(image)
 layout.addWidget(label_welcome)
-label_welcome.setObjectName('label_welcome')
 
 process_button = QPushButton(PROCESS_STRING)
 train_button = QPushButton(TRAIN_STRING)

@@ -1,19 +1,20 @@
-BLUE_MIST = '#D9C8C0'
-BLUE_MIST_2 = '#79C8FF'
-BLUE_STONE = '#DAD8D9'
+BROWN_MIST = '#D9C8C0'
 GREY_SHADOW = '#2A3132'
 RED_AUTUM = '#763626'
+BROWN = '#AD857C'
+GREY_MIST = '#E8E8E8'
+
 
 PHRYGIAN_GUI = f"""
 * {{
-    color: {BLUE_MIST_2};
-    background: {BLUE_MIST};
+    color: {GREY_SHADOW};
+    background: {GREY_MIST};
     text-align:center;
 }}
 
 QPushButton {{
     color: black;
-    background-color: {BLUE_STONE};
+    background-color: {BROWN};
     border-width: 2px;
     border-width: 10px;
     border-radius: 10px;
@@ -25,7 +26,7 @@ QPushButton {{
 }}
 
 QPushButton:hover {{
-    background: {BLUE_MIST};
+    background: {BROWN_MIST};
     color: {RED_AUTUM};
     font: bold;
     border-radius: 10px;
