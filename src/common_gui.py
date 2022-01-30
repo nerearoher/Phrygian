@@ -6,13 +6,12 @@ def accept_and_finish(args, function, parent):
   question.setIcon(QMessageBox.Question)
   question.setStandardButtons(QMessageBox.No | QMessageBox.Yes)
   question.setDefaultButton(QMessageBox.Yes)
-  question.exec()
+  if question.exec() == QMessageBox.Yes:
+    function(*args)
 
-  function(*args)
-
-  done = QMessageBox(parent)
-  done.setText("Done!")
-  done.setIcon(QMessageBox.Information)
-  done.setStandardButtons(QMessageBox.Ok)
-  done.exec()
-  parent.accept()
+    done = QMessageBox(parent)
+    done.setText("Done!")
+    done.setIcon(QMessageBox.Information)
+    done.setStandardButtons(QMessageBox.Ok)
+    done.exec()
+    parent.accept()
