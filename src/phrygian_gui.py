@@ -17,9 +17,9 @@ GENERATE_STRING = 'Generate music'
 
 app = QApplication([])
 
-path_abs = pathlib.Path(__file__).absolute().parent
-path_image = path.join(path_abs, "logo.png")
-path_image_sphere = path.join(path_abs, "logo_sphere.png")
+path_abs = pathlib.Path(__file__).absolute().parent.parent
+path_image = path.join(path_abs, "images", "logo.png")
+path_image_sphere = path.join(path_abs, "images", "logo_sphere.png")
 
 window = QWidget()
 window.setWindowTitle("Phrygian")
