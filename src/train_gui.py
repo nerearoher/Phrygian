@@ -60,7 +60,7 @@ class TrainWindow(QDialog):
     accept_and_finish([
       self.processed_midi_input.text(),
       self.weights_folder_input.text(),
-      self.epochs
+      self.epochs.value()
     ], train, self)
 
   def set_processed_midi(self):
