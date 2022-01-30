@@ -8,6 +8,7 @@ tensorflow = "2.7"
 music21 = "*"
 keras = "*"
 numpy = "*"
+pyqt5 = "*"
 
 [dev-packages]
 
