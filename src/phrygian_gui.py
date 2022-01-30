@@ -1,99 +1,15 @@
 from PyQt5.QtWidgets import (
-  QApplication, QWidget, 
-  QPushButton, QVBoxLayout, 
-  QHBoxLayout, QDialog, 
-  QLabel, QFileDialog, 
-  QTextEdit, QComboBox, 
-  QFormLayout, QLineEdit, 
-  QGridLayout, QLineEdit,
-  QLayout, QSpinBox,
-  QDialogButtonBox, QMessageBox
+  QApplication, QWidget, QPushButton,
+  QVBoxLayout, QLabel, QLayout, QSpinBox,
 )
-from PyQt5.QtCore import Qt
 from css import PHRYGIAN_GUI
 from generate_gui import GenerationWindow
 from train_gui import TrainWindow
+from process_gui import ProcessWindow
 
-# from process_midis import process
-# from train_network import train
-# from generate_music import generate
-
-# TODO: Eliminar esto cuando acabe el desarrollo de la gui
-def process(*args):
-  pass
-
-PROCESS_STRING = 'Process MIDIs melodies'
+PROCESS_STRING = 'Process MIDIs'
 TRAIN_STRING = 'Train neural network'
 GENERATE_STRING = 'Generate music'
-
-
-def accept_and_finish(args, function, dialog):
-  question = QMessageBox()
-  question.setText("The process is about to take place. Are you ready?")
-  question.setIcon(QMessageBox.Question)
-  question.setStandardButtons(QMessageBox.No | QMessageBox.Yes)
-  question.setDefaultButton(QMessageBox.Yes)
-  question.exec()
-
-  function(*args)
-
-  done = QMessageBox()
-  done.setText("Done!")
-  done.setIcon(QMessageBox.Information)
-  done.setStandardButtons(QMessageBox.Ok)
-  done.exec()
-  dialog.accept()
-
-def on_process_button_clicked():
-  dialog = QDialog()
-  dialog.setStyleSheet(PHRYGIAN_GUI)
-  layout = QFormLayout()
-  layout.setObjectName('QFormLayout')
-  dialog.setWindowTitle(PROCESS_STRING)
-
-  def set_midi_folder():
-    directory_list = QFileDialog.getExistingDirectory(None, "Select MIDI input Directory")
-    if directory_list:
-      line_edit_midi_folder.setText(directory_list)
-
-  def set_output_file():
-    line_edit_output_file.setText(QFileDialog.getSaveFileName(None, 'Create a processed midi file (melodies)', '', '')[0])
-
-  label_midi_folder = QLabel('Select a midi folder')
-  label_midi_folder.setObjectName('QLabelRow')
-  line_edit_midi_folder = QLineEdit()
-  line_edit_midi_folder.setObjectName('QLineEdit')
-  line_edit_midi_folder.setReadOnly(True)
-  browser_button_midi = QPushButton('Browser...')
-  browser_button_midi.setStyleSheet(PHRYGIAN_GUI)
-  browser_button_midi.pressed.connect(set_midi_folder)
-  layout.addRow(label_midi_folder, line_edit_midi_folder)
-  layout.addWidget(browser_button_midi)
-
-  label_output_midi = QLabel('File to save the generated melodies')
-  label_output_midi.setObjectName('QLabelRow')
-  line_edit_output_file = QLineEdit()
-  line_edit_output_file.setObjectName('QLineEdit')
-  line_edit_output_file.setReadOnly(True)
-  browser_button_output = QPushButton('Browser...')
-  browser_button_output.setStyleSheet(PHRYGIAN_GUI)
-  browser_button_output.pressed.connect(set_output_file)
-  layout.addRow(label_output_midi, line_edit_output_file)
-  layout.addWidget(browser_button_output)
-
-  qbtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
-  buttonBox = QDialogButtonBox(qbtn)
-  buttonBox.accepted.connect(lambda: accept_and_finish([
-    line_edit_midi_folder.text(),
-    line_edit_output_file.text()
-  ], process, dialog))
-  buttonBox.rejected.connect(dialog.reject)
-  layout.addWidget(buttonBox)
-
-  dialog.setLayout(layout)
-  dialog.exec()
-
-  
 
 app = QApplication([])
 
@@ -115,7 +31,7 @@ layout.addWidget(process_button)
 layout.addWidget(train_button)
 layout.addWidget(generate_button)
 
-process_button.clicked.connect(on_process_button_clicked)
+process_button.clicked.connect(lambda: ProcessWindow(window))
 train_button.clicked.connect(lambda: TrainWindow(window))
 generate_button.clicked.connect(lambda: GenerationWindow(window))
 

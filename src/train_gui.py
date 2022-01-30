@@ -7,6 +7,7 @@ from common_gui import accept_and_finish
 
 def train(*args):
   pass
+# from train_network import train
 
 class TrainWindow(QDialog):
   def __init__(self, parent):

@@ -148,6 +148,7 @@ SCALES = {
 
 def generate(*args):
   pass
+# from generate_music import generate
 
 class NoteInput(QHBoxLayout):
   def __init__(self):
