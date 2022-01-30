@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import (
   QApplication, QWidget, QPushButton,
   QVBoxLayout, QLabel, QLayout, QSpinBox,
 )
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QIcon
 from css import PHRYGIAN_GUI
 from generate_gui import GenerationWindow
 from train_gui import TrainWindow
@@ -16,15 +16,18 @@ GENERATE_STRING = 'Generate music'
 
 app = QApplication([])
 
+path_abs = pathlib.Path(__file__).absolute().parent
+path_image = path.join(path_abs, "logo.png")
+path_image_sphere = path.join(path_abs, "logo_sphere.png")
+
 window = QWidget()
 window.setWindowTitle("Phrygian")
+window.setWindowIcon(QIcon(str(path_image_sphere)))
 window.setStyleSheet(PHRYGIAN_GUI)
 layout = QVBoxLayout()
 layout.setSizeConstraint(QLayout.SetFixedSize)
 
-path_abs = pathlib.Path(__file__).absolute().parent
 label_welcome = QLabel()
-path_image = path.join(path_abs, "logo.png")
 image = QPixmap(path_image)
 label_welcome.setPixmap(image)
 layout.addWidget(label_welcome)

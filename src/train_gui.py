@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (
   QPushButton, QDialog, QLabel,
   QFileDialog, QLineEdit, QDialogButtonBox,
-  QFormLayout
+  QFormLayout, QVBoxLayout, QWidget
 )
 from common_gui import accept_and_finish
 
@@ -20,23 +20,28 @@ class TrainWindow(QDialog):
     self.exec()
 
   def setup_form(self):
+    form = QWidget(self)
+    form_layout = QFormLayout()
     label_processed_midi = QLabel('Select processed midi')
     self.processed_midi_input = QLineEdit()
     self.processed_midi_input.setReadOnly(True)
-    self.layout.addRow(label_processed_midi, self.processed_midi_input)
+    form_layout.addRow(label_processed_midi, self.processed_midi_input)
 
     browser_button_midi = QPushButton('Browser...')
     browser_button_midi.pressed.connect(self.set_processed_midi)
-    self.layout.addWidget(browser_button_midi)
+    form_layout.addWidget(browser_button_midi)
 
     label_weights_folder = QLabel('Select neural network weights folder')
     self.weight_folder_input = QLineEdit()
     self.weight_folder_input.setReadOnly(True)
-    self.layout.addRow(label_weights_folder, self.weight_folder_input)
+    form_layout.addRow(label_weights_folder, self.weight_folder_input)
 
     browser_button_wights = QPushButton('Browser...')
     browser_button_wights.pressed.connect(self.set_weights_folder)
-    self.layout.addWidget(browser_button_wights)
+    form_layout.addWidget(browser_button_wights)
+
+    form.setLayout(form_layout)
+    self.layout.addWidget(form)
 
   def setup_end_buttons(self):
     buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
