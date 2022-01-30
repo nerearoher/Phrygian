@@ -12,7 +12,7 @@ def generate_notes(model, sequences, unique_pitches, unique_durations, notes_num
     base = base.tolist()
 
     prediction_output = []
-    while len(prediction_output) < notes_number:
+    while len(prediction_output) < notes_number - 1:
         input = np.reshape(base, (1, len(base), 1))
         prediction = model.predict(input, verbose=0)
 

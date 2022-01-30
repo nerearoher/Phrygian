@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import (
   QTextEdit, QComboBox, 
   QFormLayout, QLineEdit, 
   QGridLayout, QLineEdit,
-  QLayout, QSpinBox
+  QLayout, QSpinBox, QDialogButtonBox
 )
 from PyQt5.QtCore import Qt
 from css import PHRYGIAN_GUI
@@ -179,78 +179,12 @@ def on_process_button_clicked():
   layout.addRow(label_output_midi, line_edit_output_file)
   layout.addWidget(browser_button_output)
 
-  dialog.setLayout(layout)
-  dialog.exec()
+  qbtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+  buttonBox = QDialogButtonBox(qbtn)
+  buttonBox.accepted.connect(dialog.accept)
+  buttonBox.rejected.connect(dialog.reject)
+  layout.addWidget(buttonBox)
 
-def on_generate_button_clicked():
-  dialog = QDialog()
-  layout = QFormLayout()
-  layout.setObjectName('QFormLayout')
-  dialog.setWindowTitle(GENERATE_STRING)
-
-  def set_processed_midi():
-    line_edit_processed_midi.setText(QFileDialog.getOpenFileName (None, 'Select processed midi file')[0])
-
-  def set_weights_file():
-    line_edit_weights.setText(QFileDialog.getOpenFileName(None, "Select neural networks weights")[0])
-
-  label_processed_midi = QLabel('Select a processed midi file')
-  label_weights = QLabel('Select a folder to save the generated melodies')
-  label_note = QLabel('Select the initial note')
-  label_notes = QLabel('Select the number of notes')
-  label_instruments = QLabel('Select the instrument')
-  label_output_midi = QLabel('Write output midi file')
-
-  browser_button_midi = QPushButton('Browser...')
-  browser_button_nw = QPushButton('Browser...')
-
-  combo_box_pitch = QComboBox()
-  combo_box_pitch.addItems([chr(i) for i in range(ord('A'), ord('G') + 1)])
-
-  combo_box_accidental = QComboBox()
-  combo_box_accidental.addItems(['', '♯', '♭'])
-
-  spin_box_scale = QSpinBox()
-  spin_box_scale.setRange(1, 8)
-  layout.addWidget(spin_box_scale)
-
-  note_layout = QHBoxLayout()
-  note_layout.addWidget(label_note)
-  note_layout.addWidget(combo_box_pitch)
-  note_layout.addWidget(combo_box_accidental)
-  note_layout.addWidget(spin_box_scale)
-  layout.addRow(note_layout)
-
-  combo_box_instruments = QComboBox()
-  combo_box_instruments.addItems(INSTRUMENTS.keys())
-  layout.addWidget(combo_box_instruments)
-  layout.addRow(label_instruments, combo_box_instruments)
-
-  spin_box_notes = QSpinBox()
-  spin_box_notes.setMinimum(2)
-  layout.addWidget(spin_box_notes)
-  layout.addRow(label_notes, spin_box_notes)
-
-  line_edit_processed_midi = QLineEdit()
-  line_edit_processed_midi.setReadOnly(True)
-  browser_button_midi.pressed.connect(set_processed_midi)
-  layout.addWidget(line_edit_processed_midi)
-  layout.addRow(label_processed_midi, line_edit_processed_midi)
-  layout.addWidget(browser_button_midi)
-
-  line_edit_weights = QLineEdit()
-  line_edit_weights.setReadOnly(True)
-  browser_button_nw.pressed.connect(set_weights_file)
-  layout.addWidget(line_edit_weights)
-  layout.addRow(label_weights, line_edit_weights)
-  layout.addWidget(browser_button_nw)
-
-  output_midi_file  = QLineEdit()
-  output_midi_file.move(80, 20)
-  output_midi_file.resize(200, 32)
-  layout.addWidget(output_midi_file)
-  layout.addRow(label_output_midi, output_midi_file)
-  
   dialog.setLayout(layout)
   dialog.exec()
 
@@ -287,6 +221,85 @@ def on_train_button_clicked():
   layout.addWidget(line_edit_weights_folder)
   layout.addRow(label_wights_folder, line_edit_weights_folder)
   layout.addWidget(browser_button_wights)
+
+  qbtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+  buttonBox = QDialogButtonBox(qbtn)
+  buttonBox.accepted.connect(dialog.accept)
+  buttonBox.rejected.connect(dialog.reject)
+  layout.addWidget(buttonBox)
+
+  dialog.setLayout(layout)
+  dialog.exec()
+  
+def on_generate_button_clicked():
+  dialog = QDialog()
+  layout = QFormLayout()
+  layout.setObjectName('QFormLayout')
+  dialog.setWindowTitle(GENERATE_STRING)
+
+  def set_processed_midi():
+    line_edit_processed_midi.setText(QFileDialog.getOpenFileName (None, 'Select processed midi file')[0])
+
+  def set_weights_file():
+    line_edit_weights.setText(QFileDialog.getOpenFileName(None, "Select neural networks weights")[0])
+
+  label_note = QLabel('Select the initial note')
+  combo_box_pitch = QComboBox()
+  combo_box_pitch.addItems([chr(i) for i in range(ord('A'), ord('G') + 1)])
+
+  combo_box_accidental = QComboBox()
+  combo_box_accidental.addItems(['', '♯', '♭'])
+
+  spin_box_scale = QSpinBox()
+  spin_box_scale.setRange(1, 8)
+  layout.addWidget(spin_box_scale)
+
+  note_layout = QHBoxLayout()
+  note_layout.addWidget(combo_box_pitch)
+  note_layout.addWidget(combo_box_accidental)
+  note_layout.addWidget(spin_box_scale)
+  layout.addRow(label_note, note_layout)
+
+  label_instruments = QLabel('Select the instrument')
+  combo_box_instruments = QComboBox()
+  combo_box_instruments.addItems(INSTRUMENTS.keys())
+  layout.addWidget(combo_box_instruments)
+  layout.addRow(label_instruments, combo_box_instruments)
+
+  label_number = QLabel('Select the number of notes')
+  spin_box_notes = QSpinBox()
+  spin_box_notes.setMinimum(2)
+  layout.addWidget(spin_box_notes)
+  layout.addRow(label_number, spin_box_notes)
+
+  label_processed_midi = QLabel('Select a processed midi file')
+  line_edit_processed_midi = QLineEdit()
+  line_edit_processed_midi.setReadOnly(True)
+  browser_button_midi = QPushButton('Browser...')
+  browser_button_midi.pressed.connect(set_processed_midi)
+  layout.addWidget(line_edit_processed_midi)
+  layout.addRow(label_processed_midi, line_edit_processed_midi)
+  layout.addWidget(browser_button_midi)
+
+  label_weights = QLabel('Select a folder to save the generated melodies')
+  line_edit_weights = QLineEdit()
+  line_edit_weights.setReadOnly(True)
+  browser_button_nw = QPushButton('Browser...')
+  browser_button_nw.pressed.connect(set_weights_file)
+  layout.addWidget(line_edit_weights)
+  layout.addRow(label_weights, line_edit_weights)
+  layout.addWidget(browser_button_nw)
+
+  label_output_midi = QLabel('Write output midi file')
+  output_midi_file  = QLineEdit()
+  layout.addWidget(output_midi_file)
+  layout.addRow(label_output_midi, output_midi_file)
+  
+  qbtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+  buttonBox = QDialogButtonBox(qbtn)
+  buttonBox.accepted.connect(dialog.accept)
+  buttonBox.rejected.connect(dialog.reject)
+  layout.addWidget(buttonBox)
 
   dialog.setLayout(layout)
   dialog.exec()
