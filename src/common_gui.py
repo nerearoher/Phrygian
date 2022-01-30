@@ -15,4 +15,4 @@ def accept_and_finish(args, function, parent):
   done.setIcon(QMessageBox.Information)
   done.setStandardButtons(QMessageBox.Ok)
   done.exec()
-  self.accept()
+  parent.accept()

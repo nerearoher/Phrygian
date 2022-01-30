@@ -23,7 +23,6 @@ def generate_notes(model, sequences, unique_pitches, unique_durations, notes_num
         base.insert(0, unique_pitches[pitch])
         base.insert(0, unique_durations[duration])
         base = base[:-2]
-        print(len(prediction_output), base)
         if len(prediction_output) > 3:
             if prediction_output[-3][0] == prediction_output[-2][0] == prediction_output[-1][0]:
                 base = sequences[np.random.randint(0, len(sequences) - 1)]
@@ -68,6 +67,12 @@ def calculate_positive_pitch(pitch):
         return int(pitch / sqrt(pitch**2) * 12)
     return pitch % 12
 
+def show_in_mscore(stream):
+    try:
+        stream.show()
+    except:
+        print("Couldn't open in MuseScore")
+
 def generate_midi(initial_note, notes, instrument, scale):
     stream = [instruments[instrument]]
     scale = scales[scale]
@@ -94,7 +99,7 @@ def generate_midi(initial_note, notes, instrument, scale):
     stream.append(new_note)
 
     stream = Stream(stream)
-    stream.show()
+    show_in_mscore(stream)
     return stream
 
 def generate(melodies, weights_file, output_file, initial_note="a3",

@@ -4,10 +4,7 @@ from PyQt5.QtWidgets import (
   QFormLayout, QVBoxLayout, QWidget
 )
 from common_gui import accept_and_finish
-
-def train(*args):
-  pass
-# from train_network import train
+from train_network import train
 
 class TrainWindow(QDialog):
   def __init__(self, parent):
@@ -33,9 +30,9 @@ class TrainWindow(QDialog):
     form_layout.addWidget(browser_button_midi)
 
     label_weights_folder = QLabel('Select neural network weights folder')
-    self.weight_folder_input = QLineEdit()
-    self.weight_folder_input.setReadOnly(True)
-    form_layout.addRow(label_weights_folder, self.weight_folder_input)
+    self.weights_folder_input = QLineEdit()
+    self.weights_folder_input.setReadOnly(True)
+    form_layout.addRow(label_weights_folder, self.weights_folder_input)
 
     browser_button_wights = QPushButton('Browser...')
     browser_button_wights.setObjectName('BrowserButton')
@@ -64,5 +61,6 @@ class TrainWindow(QDialog):
 
   def set_weights_folder(self):
     directory_list = QFileDialog.getExistingDirectory(None, "Select weights Directory")
+    print(directory_list)
     if directory_list:
-      self.weights_folder_input.setText(directory_list[0])
+      self.weights_folder_input.setText(directory_list)

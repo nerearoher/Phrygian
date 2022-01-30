@@ -4,10 +4,7 @@ from PyQt5.QtWidgets import (
   QFormLayout, QVBoxLayout, QWidget
 )
 from common_gui import accept_and_finish
-
-def process(*args):
-  pass
-# from process_midis import process
+from process_midis import process
 
 class ProcessWindow(QDialog):
   def __init__(self, parent):

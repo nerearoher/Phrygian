@@ -4,151 +4,9 @@ from PyQt5.QtWidgets import (
   QFileDialog, QComboBox, QFormLayout, QLineEdit, 
   QSpinBox, QDialogButtonBox 
 )
-from music21 import instrument
+from common import instruments, scales
 from common_gui import accept_and_finish
-
-INSTRUMENTS = {
-  "Accordion": instrument.Accordion(),
-  "AcousticBass": instrument.AcousticBass(),
-  "AcousticGuitar": instrument.AcousticGuitar(),
-  "Agogo": instrument.Agogo(),
-  "Alto": instrument.Alto(),
-  "AltoSaxophone": instrument.AltoSaxophone(),
-  "Bagpipes": instrument.Bagpipes(),
-  "Banjo": instrument.Banjo(),
-  "Baritone": instrument.Baritone(),
-  "BaritoneSaxophone": instrument.BaritoneSaxophone(),
-  "Bass": instrument.Bass(),
-  "BassClarinet": instrument.BassClarinet(),
-  "BassDrum": instrument.BassDrum(),
-  "BassTrombone": instrument.BassTrombone(),
-  "Bassoon": instrument.Bassoon(),
-  "BongoDrums": instrument.BongoDrums(),
-  "BrassInstrument": instrument.BrassInstrument(),
-  "Castanets": instrument.Castanets(),
-  "Celesta": instrument.Celesta(),
-  "Choir": instrument.Choir(),
-  "ChurchBells": instrument.ChurchBells(),
-  "Clarinet": instrument.Clarinet(),
-  "Clavichord": instrument.Clavichord(),
-  "Conductor": instrument.Conductor(),
-  "CongaDrum": instrument.CongaDrum(),
-  "Contrabass": instrument.Contrabass(),
-  "Contrabassoon": instrument.Contrabassoon(),
-  "Cowbell": instrument.Cowbell(),
-  "CrashCymbals": instrument.CrashCymbals(),
-  "Cymbals": instrument.Cymbals(),
-  "Dulcimer": instrument.Dulcimer(),
-  "ElectricBass": instrument.ElectricBass(),
-  "ElectricGuitar": instrument.ElectricGuitar(),
-  "ElectricOrgan": instrument.ElectricOrgan(),
-  "ElectricPiano": instrument.ElectricPiano(),
-  "EnglishHorn": instrument.EnglishHorn(),
-  "FingerCymbals": instrument.FingerCymbals(),
-  "Flute": instrument.Flute(),
-  "FretlessBass": instrument.FretlessBass(),
-  "Glockenspiel": instrument.Glockenspiel(),
-  "Gong": instrument.Gong(),
-  "Guitar": instrument.Guitar(),
-  "Handbells": instrument.Handbells(),
-  "Harmonica": instrument.Harmonica(),
-  "Harp": instrument.Harp(),
-  "Harpsichord": instrument.Harpsichord(),
-  "HiHatCymbal": instrument.HiHatCymbal(),
-  "Horn": instrument.Horn(),
-  "Kalimba": instrument.Kalimba(),
-  "KeyboardInstrument": instrument.KeyboardInstrument(),
-  "Koto": instrument.Koto(),
-  "Lute": instrument.Lute(),
-  "Mandolin": instrument.Mandolin(),
-  "Maracas": instrument.Maracas(),
-  "Marimba": instrument.Marimba(),
-  "MezzoSoprano": instrument.MezzoSoprano(),
-  "Oboe": instrument.Oboe(),
-  "Ocarina": instrument.Ocarina(),
-  "Organ": instrument.Organ(),
-  "PanFlute": instrument.PanFlute(),
-  "Percussion": instrument.Percussion(),
-  "Piano": instrument.Piano(),
-  "Piccolo": instrument.Piccolo(),
-  "PipeOrgan": instrument.PipeOrgan(),
-  "PitchedPercussion": instrument.PitchedPercussion(),
-  "Ratchet": instrument.Ratchet(),
-  "Recorder": instrument.Recorder(),
-  "ReedOrgan": instrument.ReedOrgan(),
-  "RideCymbals": instrument.RideCymbals(),
-  "Sampler": instrument.Sampler(),
-  "SandpaperBlocks": instrument.SandpaperBlocks(),
-  "Saxophone": instrument.Saxophone(),
-  "Shakuhachi": instrument.Shakuhachi(),
-  "Shamisen": instrument.Shamisen(),
-  "Shehnai": instrument.Shehnai(),
-  "Siren": instrument.Siren(),
-  "Sitar": instrument.Sitar(),
-  "SizzleCymbal": instrument.SizzleCymbal(),
-  "SleighBells": instrument.SleighBells(),
-  "SnareDrum": instrument.SnareDrum(),
-  "Soprano": instrument.Soprano(),
-  "SopranoSaxophone": instrument.SopranoSaxophone(),
-  "SplashCymbals": instrument.SplashCymbals(),
-  "SteelDrum": instrument.SteelDrum(),
-  "StringInstrument": instrument.StringInstrument(),
-  "SuspendedCymbal": instrument.SuspendedCymbal(),
-  "Taiko": instrument.Taiko(),
-  "TamTam": instrument.TamTam(),
-  "Tambourine": instrument.Tambourine(),
-  "TempleBlock": instrument.TempleBlock(),
-  "Tenor": instrument.Tenor(),
-  "TenorDrum": instrument.TenorDrum(),
-  "TenorSaxophone": instrument.TenorSaxophone(),
-  "Timbales": instrument.Timbales(),
-  "Timpani": instrument.Timpani(),
-  "TomTom": instrument.TomTom(),
-  "Triangle": instrument.Triangle(),
-  "Trombone": instrument.Trombone(),
-  "Trumpet": instrument.Trumpet(),
-  "Tuba": instrument.Tuba(),
-  "TubularBells": instrument.TubularBells(),
-  "Ukulele": instrument.Ukulele(),
-  "UnpitchedPercussion": instrument.UnpitchedPercussion(),
-  "Vibraphone": instrument.Vibraphone(),
-  "Vibraslap": instrument.Vibraslap(),
-  "Viola": instrument.Viola(),
-  "Violin": instrument.Violin(),
-  "Violoncello": instrument.Violoncello(),
-  "Vocalist": instrument.Vocalist(),
-  "Whip": instrument.Whip(),
-  "Whistle": instrument.Whistle(),
-  "WindMachine": instrument.WindMachine(),
-  "Woodblock": instrument.Woodblock(),
-  "WoodwindInstrument": instrument.WoodwindInstrument(),
-  "Xylophone": instrument.Xylophone()
-}
-
-SCALES = {
-  "Chromatic": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-  "Octatonic": [0, 1, 3, 4, 6, 7, 9, 10, 12],
-  "Hexatonic-Whole-Tone": [0, 2, 4, 6, 8, 10, 12],
-  "Hexatonic-Blues": [0, 3, 5, 6, 7, 10, 12],
-  "Pentatonic": [0, 2, 4, 7, 9, 12],
-  "Pentatonic-Blues": [0, 2, 3, 4, 7, 9, 12],
-  "Neapolitan-Major": [0, 1, 3, 5, 7, 9, 11, 12],
-  "Neapolitan-Minor": [0, 1, 3, 5, 7, 8, 11, 12],
-  "Flamenco": [0, 1, 4, 5, 7, 8, 11, 12], 
-  "Minor": [0, 2, 3, 5, 7, 8, 11, 12],
-  "Ionian": [0, 2, 4, 5, 7, 9, 11, 12],
-  "Dorian": [0, 2, 4, 5, 7, 9, 10, 12],
-  "Phrygian": [0, 1, 3, 6, 7, 8, 10, 12],
-  "Lydian": [0, 2, 4, 6, 7, 9, 11, 12],
-  "Mixolydian": [0, 2, 4, 5, 7, 9, 10, 12],
-  "Aeolian": [0, 2, 3, 5, 7, 8, 10, 12],
-  "Locrian": [0, 1, 3, 5, 6, 8, 10, 12],
-  "Enigma": [0, 1, 4, 6, 8, 10, 11, 12]
-}
-
-def generate(*args):
-  pass
-# from generate_music import generate
+from generate_music import generate
 
 class NoteInput(QHBoxLayout):
   def __init__(self):
@@ -167,8 +25,8 @@ class NoteInput(QHBoxLayout):
     self.addWidget(self.scale)
 
   def get_note(self):
-    return str(self.pitch.currentData()) + \
-      str(self.symbol.currentData()) + \
+    return str(self.pitch.currentText()) + \
+      str(self.symbol.currentText()) + \
       str(self.scale.value())
 
 class GenerationWindow(QDialog):
@@ -195,7 +53,7 @@ class GenerationWindow(QDialog):
     ))
     form_layout.addWidget(browser_button_midi)
 
-    label_weights = QLabel('Select a folder to save the generated melodies')
+    label_weights = QLabel('Select the weights to use')
     self.weights_input = QLineEdit()
     self.weights_input.setReadOnly(True)
     form_layout.addRow(label_weights, self.weights_input)
@@ -223,13 +81,13 @@ class GenerationWindow(QDialog):
 
     label_instruments = QLabel('Select the instrument')
     self.instrument_input = QComboBox()
-    self.instrument_input.addItems(INSTRUMENTS.keys())
-    self.instrument_input.setCurrentIndex(list(INSTRUMENTS.keys()).index('Piano'))
+    self.instrument_input.addItems(instruments.keys())
+    self.instrument_input.setCurrentIndex(list(instruments.keys()).index('Piano'))
     form_layout.addRow(label_instruments, self.instrument_input)
 
     label_scale = QLabel('Select the scale')
     self.scale_input = QComboBox()
-    self.scale_input.addItems(SCALES.keys())
+    self.scale_input.addItems(scales.keys())
     form_layout.addRow(label_scale, self.scale_input)
 
     label_number = QLabel('Select the number of notes')
@@ -246,14 +104,14 @@ class GenerationWindow(QDialog):
     buttonBox.rejected.connect(self.reject)
     self.layout.addWidget(buttonBox)
 
-  def end_dialog():
+  def end_dialog(self):
     accept_and_finish([
       self.processed_midi_input.text(),
-      self.weigths_input.text(),
+      self.weights_input.text(),
       self.output_file_input.text(),
       self.note_input.get_note(),
-      self.instruments_input.currentData(),
-      self.scale_input.currentData(),
+      self.instrument_input.currentText(),
+      self.scale_input.currentText(),
       self.number_of_notes_input.value()
     ], generate, self)
 
