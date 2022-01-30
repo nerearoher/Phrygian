@@ -1,16 +1,11 @@
 from PyQt5.QtWidgets import (
-  QApplication, QWidget, 
-  QPushButton, QVBoxLayout, 
-  QHBoxLayout, QDialog, 
-  QLabel, QFileDialog, 
-  QTextEdit, QComboBox, 
-  QFormLayout, QLineEdit, 
-  QGridLayout, QLineEdit,
-  QLayout, QSpinBox,
-  QDialogButtonBox, QMessageBox
+  QWidget, QPushButton, QVBoxLayout, 
+  QHBoxLayout, QDialog, QLabel,
+  QFileDialog, QComboBox, QFormLayout, QLineEdit, 
+  QSpinBox, QDialogButtonBox 
 )
-from PyQt5.QtCore import Qt
 from music21 import instrument
+from common_gui import accept_and_finish
 
 INSTRUMENTS = {
   "Accordion": instrument.Accordion(),
@@ -154,23 +149,6 @@ SCALES = {
 def generate(*args):
   pass
 
-def accept_and_finish(args, function, dialog):
-  question = QMessageBox()
-  question.setText("The process is about to take place. Are you ready?")
-  question.setIcon(QMessageBox.Question)
-  question.setStandardButtons(QMessageBox.No | QMessageBox.Yes)
-  question.setDefaultButton(QMessageBox.Yes)
-  question.exec()
-
-  function(*args)
-
-  done = QMessageBox()
-  done.setText("Done!")
-  done.setIcon(QMessageBox.Information)
-  done.setStandardButtons(QMessageBox.Ok)
-  done.exec()
-  dialog.accept()
-
 class NoteInput(QHBoxLayout):
   def __init__(self):
     super().__init__()
@@ -260,7 +238,12 @@ class GenerationWindow(QDialog):
 
   def setup_end_buttons(self):
     buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-    buttonBox.accepted.connect(lambda: accept_and_finish([
+    buttonBox.accepted.connect(self.end_dialog)
+    buttonBox.rejected.connect(self.reject)
+    self.layout.addWidget(buttonBox)
+
+  def end_dialog():
+    accept_and_finish([
       self.processed_midi_input.text(),
       self.weigths_input.text(),
       self.output_file_input.text(),
@@ -268,6 +251,5 @@ class GenerationWindow(QDialog):
       self.instruments_input.currentData(),
       self.scale_input.currentData(),
       self.number_of_notes_input.value()
-    ], generate, self))
-    buttonBox.rejected.connect(self.reject)
-    self.layout.addWidget(buttonBox)
+    ], generate, self)
+

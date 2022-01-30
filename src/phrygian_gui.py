@@ -12,6 +12,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtCore import Qt
 from css import PHRYGIAN_GUI
 from generate_gui import GenerationWindow
+from train_gui import TrainWindow
 
 # from process_midis import process
 # from train_network import train
@@ -20,11 +21,9 @@ from generate_gui import GenerationWindow
 # TODO: Eliminar esto cuando acabe el desarrollo de la gui
 def process(*args):
   pass
-def train(*args):
-  pass
 
 PROCESS_STRING = 'Process MIDIs melodies'
-TRAIN_STRING = 'Train neuronal network'
+TRAIN_STRING = 'Train neural network'
 GENERATE_STRING = 'Generate music'
 
 
@@ -94,49 +93,6 @@ def on_process_button_clicked():
   dialog.setLayout(layout)
   dialog.exec()
 
-def on_train_button_clicked():
-  dialog = QDialog()
-  layout = QFormLayout()
-  layout.setObjectName('QFormLayout')
-  dialog.setWindowTitle(TRAIN_STRING)
-
-  def set_processed_midi():
-    line_edit_processed_midi.setText(QFileDialog.getOpenFileName (None, 'Select processed midi file')[0])
-
-  def set_weights_folder():
-    directory_list = QFileDialog.getExistingDirectory(None, "Select weights Directory")
-    if directory_list:
-      line_edit_midi_folder.setText(directory_list[0])
-
-  label_processed_midi = QLabel('Select processed midi')
-  label_wights_folder = QLabel('Select neural network weights folder')
-
-  browser_button_midi = QPushButton('Browser...')
-  browser_button_wights = QPushButton('Browser...')
-
-  line_edit_processed_midi = QLineEdit()
-  line_edit_processed_midi.setReadOnly(True)
-  browser_button_midi.pressed.connect(set_processed_midi)
-  layout.addRow(label_processed_midi, line_edit_processed_midi)
-  layout.addWidget(browser_button_midi)
-
-  line_edit_weights_folder = QLineEdit()
-  line_edit_weights_folder.setReadOnly(True)
-  browser_button_wights.pressed.connect(set_weights_folder)
-  layout.addRow(label_wights_folder, line_edit_weights_folder)
-  layout.addWidget(browser_button_wights)
-
-  qbtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
-  buttonBox = QDialogButtonBox(qbtn)
-  buttonBox.accepted.connect(lambda: accept_and_finish([
-    line_edit_processed_midi.text(),
-    line_edit_weights_folder.text()
-  ], train, dialog))
-  buttonBox.rejected.connect(dialog.reject)
-  layout.addWidget(buttonBox)
-
-  dialog.setLayout(layout)
-  dialog.exec()
   
 
 app = QApplication([])
@@ -160,7 +116,7 @@ layout.addWidget(train_button)
 layout.addWidget(generate_button)
 
 process_button.clicked.connect(on_process_button_clicked)
-train_button.clicked.connect(on_train_button_clicked)
+train_button.clicked.connect(lambda: TrainWindow(window))
 generate_button.clicked.connect(lambda: GenerationWindow(window))
 
 window.setLayout(layout)
