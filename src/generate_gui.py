@@ -22,7 +22,7 @@ class NoteInput(QHBoxLayout):
     self.addWidget(self.pitch)
 
     self.symbol = QComboBox()
-    self.symbol.addItems([' ', '♯', '♭'])
+    self.symbol.addItems(symbol_to_accidental.keys())
     self.addWidget(self.symbol)
 
     self.scale = QSpinBox()

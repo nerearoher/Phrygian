@@ -17,10 +17,10 @@ def process_cli(args):
 
 def print_train_usage():
     print("This subcommand takes a preprocessed file and trains a neural network")
-    print("Usage: " + argv[0] + " train <processed midis file> <neural network weights folder>")
+    print("Usage: " + argv[0] + " train <processed midis file> <neural network weights folder> <number of epochs>")
 
 def train_cli(args):
-    if len(args) != 2 or args[0] in ["-h", "--help"]:
+    if len(args) != 3 or args[0] in ["-h", "--help"]:
         print_train_usage()
         exit()
     train(*args)

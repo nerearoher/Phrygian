@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (
   QPushButton, QDialog, QLabel,
   QFileDialog, QLineEdit, QDialogButtonBox,
-  QFormLayout, QVBoxLayout, QWidget
+  QFormLayout, QVBoxLayout, QWidget, QSpinBox
 )
 from common_gui import accept_and_finish
 from train_network import train
@@ -39,6 +39,14 @@ class TrainWindow(QDialog):
     browser_button_wights.pressed.connect(self.set_weights_folder)
     form_layout.addWidget(browser_button_wights)
 
+    label_output_midi = QLabel('Number of epochs')
+    label_output_midi.setObjectName('QLabelRow')
+    self.epochs = QSpinBox()
+    self.epochs.setObjectName('QSpinBox')
+    self.epochs.setRange(1, 999999)
+    self.epochs.setValue(8)
+    form_layout.addRow(label_output_midi, self.epochs)
+
     form.setLayout(form_layout)
     self.layout.addWidget(form)
 
@@ -51,7 +59,8 @@ class TrainWindow(QDialog):
   def end_dialog(self):
     accept_and_finish([
       self.processed_midi_input.text(),
-      self.weights_folder_input.text()
+      self.weights_folder_input.text(),
+      self.epochs
     ], train, self)
 
   def set_processed_midi(self):

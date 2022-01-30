@@ -3,18 +3,19 @@ import json
 from tensorflow.keras.callbacks import ModelCheckpoint
 from common import prepare_sequences, create_network
 
-def train_network(network, sequences, outputs, weights_folder):
+def train_network(network, sequences, outputs, weights_folder, n_epochs):
     filepath = path.join(weights_folder, "weights-{epoch:02d}-{loss:.4f}.hdf5")
 
     checkpoint = ModelCheckpoint(
         filepath,
         monitor='loss',
         verbose=0,
-        mode='min'
+        mode='min',
+        save_best_only=True
     )
-    network.fit(sequences, outputs, epochs=8, callbacks=[checkpoint])
+    network.fit(sequences, outputs, epochs=n_epochs, callbacks=[checkpoint])
 
-def train(sequences_file, weights_folder):
+def train(sequences_file, weights_folder, n_epochs):
     with open(sequences_file, "r") as input:
         content = input.read()
         melodies = json.loads(content)
@@ -27,4 +28,4 @@ def train(sequences_file, weights_folder):
         (sequences, outputs) = prepare_sequences(melodies, unique_pitches, unique_durations)
 
         network = create_network(sequences, output_size)
-        train_network(network, sequences, outputs, weights_folder)
+        train_network(network, sequences, outputs, weights_folder, n_epochs)
