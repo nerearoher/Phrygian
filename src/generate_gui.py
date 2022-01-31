@@ -94,6 +94,7 @@ class GenerationWindow(QDialog):
     label_scale = QLabel('Select the scale')
     self.scale_input = QComboBox()
     self.scale_input.addItems(scales.keys())
+    self.scale_input.setCurrentIndex(list(scales.keys()).index('Phrygian'))
     form_layout.addRow(label_scale, self.scale_input)
 
     label_number = QLabel('Select the number of notes')
