@@ -10,7 +10,8 @@ from math import sqrt
 def generate_notes(model, sequences, unique_pitches, unique_durations, notes_number):
     base = sequences[np.random.randint(0, len(sequences) - 1)]
     base = base.tolist()
-
+    print(unique_pitches)
+    print(unique_durations)
     prediction_output = []
     while len(prediction_output) < notes_number - 1:
         input = np.reshape(base, (1, len(base), 1))
@@ -20,8 +21,8 @@ def generate_notes(model, sequences, unique_pitches, unique_durations, notes_num
         duration = np.argmax(prediction[0][len(unique_durations):])
         prediction_output.append([unique_pitches[pitch], unique_durations[duration]])
 
-        base.insert(0, pitch)
         base.insert(0, duration)
+        base.insert(0, pitch)
         base = base[:-2]
         if len(prediction_output) > 3:
             if prediction_output[-3][0] == prediction_output[-2][0] == prediction_output[-1][0]:
