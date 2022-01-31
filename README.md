@@ -3,7 +3,7 @@
 ## Table of Contents  <!-- omit in toc -->
 - [Authors](#authors)
 - [Requirements](#requirements)
-- [Installation](#installation)
+- [Download](#download)
 - [Execution](#execution)
   - [Phrygian CLI](#phrygian-cli)
     - [Main program](#main-program)
@@ -24,16 +24,16 @@
 
 ## Requirements
   * [Python 3](https://www.python.org/downloads/)
-    * Modules:
-        - [tensorflow](https://www.tensorflow.org/install)
-        - [music21](https://web.mit.edu/music21/doc/installing/)
-        - [keras](https://keras.io/about/#installation-amp-compatibility)
-        - [numpy](https://numpy.org/install/)
-        - [pyqt5](https://pypi.org/project/PyQt5/)
-  * [Musescore 3](https://musescore.org/en/download)
+    * Packages:
+      - [tensorflow](https://www.tensorflow.org/install)
+      - [music21](https://web.mit.edu/music21/doc/installing/)
+      - [keras](https://keras.io/about/#installation-amp-compatibility)
+      - [numpy](https://numpy.org/install/)
+      - [pyqt5](https://pypi.org/project/PyQt5/) `(Optional: Needed for the GUI)`
+  * [MuseScore 3](https://musescore.org/en/download) `(Optional: Needed to visualize the generated music)`
 
 
-## Installation
+## Download
 
 ```bash
 $ git clone https://github.com/alu0101215693/Phrygian.git
