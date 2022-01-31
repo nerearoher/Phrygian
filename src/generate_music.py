@@ -70,8 +70,8 @@ def calculate_positive_pitch(pitch):
 def show_in_mscore(stream):
     try:
         stream.show()
-    except:
-        print("Couldn't open in MuseScore")
+    except Exception as exception:
+        print("Couldn't open in MuseScore:", exception)
 
 def generate_midi(initial_note, notes, instrument, scale):
     stream = [instruments[instrument]]
@@ -95,8 +95,8 @@ def generate_midi(initial_note, notes, instrument, scale):
                 new_note.quarterLength = note[1]
                 stream.append(new_note)
             else:
+                chord.add(pitch)
                 chord = [Note(p) for p in chord]
-                chord.append(Note(pitch))
                 new_chord = Chord(chord, quarterLength=note[1])
                 stream.append(new_chord)
                 chord = set([])
