@@ -82,24 +82,26 @@ def generate_midi(initial_note, notes, instrument, scale):
     new_note.quarterLength = notes[np.random.randint(0, len(notes))][1]
     stream.append(new_note)
 
-    chord = []
+    chord = set([])
     for note in notes:
         pitch = normalize_pitch(pitch + note[0])
         dif = pitch - initial_pitch
         relative_pitch = calculate_pitch(dif)
         relative_positive_pitch = calculate_positive_pitch(relative_pitch)
         pitch += pitch_into_scale(relative_positive_pitch, scale) - relative_pitch
-        new_note = Note(pitch)
         if note[1] != 0.0:
             if len(chord) == 0:
+                new_note = Note(pitch)
                 new_note.quarterLength = note[1]
                 stream.append(new_note)
             else:
+                chord = [Note(p) for p in chord]
+                chord.append(Note(pitch))
                 new_chord = Chord(chord, quarterLength=note[1])
                 stream.append(new_chord)
-                chord = []
+                chord = set([])
         else:
-            chord.append(new_note)
+            chord.add(pitch)
 
     
     dif = (pitch - initial_pitch) % 12
