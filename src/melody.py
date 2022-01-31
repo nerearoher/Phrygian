@@ -46,9 +46,9 @@ class Melody():
         self.notes.append((calculate_pitch(last_pitch.midi - self.previous_pitch), duration))
 
     def add_rest(self, rest: Rest):
-        duration = calculate_duration(rest.quarterLength)
         if len(self.notes) != 0:
-            self.notes[-1] = (self.notes[-1][0], self.notes[-1][1] + duration)
+            duration = calculate_duration(self.notes[-1][1] + rest.quarterLength)
+            self.notes[-1] = (self.notes[-1][0], duration)
             
     def to_notes(self) -> [(int, float)]:
         return self.notes
