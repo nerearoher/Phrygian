@@ -4,6 +4,7 @@ import random
 from common import prepare_sequences, create_network, instruments, scales
 from melody import calculate_pitch
 from music21.note import Note
+from music21.chord import Chord
 from music21.stream import Stream
 from math import sqrt
 
@@ -81,6 +82,7 @@ def generate_midi(initial_note, notes, instrument, scale):
     new_note.quarterLength = notes[np.random.randint(0, len(notes))][1]
     stream.append(new_note)
 
+    chord = []
     for note in notes:
         pitch = normalize_pitch(pitch + note[0])
         dif = pitch - initial_pitch
@@ -88,8 +90,17 @@ def generate_midi(initial_note, notes, instrument, scale):
         relative_positive_pitch = calculate_positive_pitch(relative_pitch)
         pitch += pitch_into_scale(relative_positive_pitch, scale) - relative_pitch
         new_note = Note(pitch)
-        new_note.quarterLength = note[1]
-        stream.append(new_note)
+        if note[1] != 0.0:
+            if len(chord) == 0:
+                new_note.quarterLength = note[1]
+                stream.append(new_note)
+            else:
+                new_chord = Chord(chord, quarterLength=note[1])
+                stream.append(new_chord)
+                chord = []
+        else:
+            chord.append(new_note)
+
     
     dif = (pitch - initial_pitch) % 12
     pitch -= dif + (-12 if dif > 6 else 0)

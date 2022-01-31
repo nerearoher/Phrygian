@@ -38,9 +38,9 @@ class Melody():
         duration = calculate_duration(chord.quarterLength)
         for pitch in chord.pitches[:-1]:
             if self.previous_pitch is None:
-                self.notes.append((0, duration))
+                self.notes.append((0, 0.0))
             else:
-                self.notes.append((calculate_pitch(pitch.midi - self.previous_pitch), duration))
+                self.notes.append((calculate_pitch(pitch.midi - self.previous_pitch), 0.0))
             self.previous_pitch = pitch.midi
         last_pitch = chord.pitches[-1]
         self.notes.append((calculate_pitch(last_pitch.midi - self.previous_pitch), duration))
