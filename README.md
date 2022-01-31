@@ -79,8 +79,30 @@ $ src/phrygian_gui.py
 ![Generate music Image](./images/generate.png)
 
 ## Appendix
+* Available instruments: 
 ```
-Available instruments: Accordion, AcousticBass, AcousticGuitar, Agogo, Alto, AltoSaxophone, Bagpipes, Banjo, Baritone, BaritoneSaxophone, Bass, BassClarinet, BassDrum, BassTrombone, Bassoon, BongoDrums, BrassInstrument, Castanets, Celesta, Choir, ChurchBells, Clarinet, Clavichord, Conductor, CongaDrum, Contrabass, Contrabassoon, Cowbell, CrashCymbals, Cymbals, Dulcimer, ElectricBass, ElectricGuitar, ElectricOrgan, ElectricPiano, EnglishHorn, FingerCymbals, Flute, FretlessBass, Glockenspiel, Gong, Guitar, Handbells, Harmonica, Harp, Harpsichord, HiHatCymbal, Horn, Kalimba, KeyboardInstrument, Koto, Lute, Mandolin, Maracas, Marimba, MezzoSoprano, Oboe, Ocarina, Organ, PanFlute, Percussion, Piano, Piccolo, PipeOrgan, PitchedPercussion, Ratchet, Recorder, ReedOrgan, RideCymbals, Sampler, SandpaperBlocks, Saxophone, Shakuhachi, Shamisen, Shehnai, Siren, Sitar, SizzleCymbal, SleighBells, SnareDrum, Soprano, SopranoSaxophone, SplashCymbals, SteelDrum, StringInstrument, SuspendedCymbal, Taiko, TamTam, Tambourine, TempleBlock, Tenor, TenorDrum, TenorSaxophone, Timbales, Timpani, TomTom, Triangle, Trombone, Trumpet, Tuba, TubularBells, Ukulele, UnpitchedPercussion, Vibraphone, Vibraslap, Viola, Violin, Violoncello, Vocalist, Whip, Whistle, WindMachine, Woodblock, WoodwindInstrument, Xylophone
+Accordion, AcousticBass, AcousticGuitar, Agogo, Alto, AltoSaxophone, Bagpipes,
+Banjo, Baritone, BaritoneSaxophone, Bass, BassClarinet, BassDrum, BassTrombone,
+Bassoon, BongoDrums, BrassInstrument, Castanets, Celesta, Choir, ChurchBells,
+Clarinet, Clavichord, Conductor, CongaDrum, Contrabass, Contrabassoon, Cowbell,
+CrashCymbals, Cymbals, Dulcimer, ElectricBass, ElectricGuitar, ElectricOrgan,
+ElectricPiano, EnglishHorn, FingerCymbals, Flute, FretlessBass, Glockenspiel,
+Gong, Guitar, Handbells, Harmonica, Harp, Harpsichord, HiHatCymbal, Horn,
+Kalimba, KeyboardInstrument, Koto, Lute, Mandolin, Maracas, Marimba,
+MezzoSoprano, Oboe, Ocarina, Organ, PanFlute, Percussion, Piano, Piccolo,
+PipeOrgan, PitchedPercussion, Ratchet, Recorder, ReedOrgan, RideCymbals,
+Sampler, SandpaperBlocks, Saxophone, Shakuhachi, Shamisen, Shehnai, Siren,
+Sitar, SizzleCymbal, SleighBells, SnareDrum, Soprano, SopranoSaxophone,
+SplashCymbals, SteelDrum, StringInstrument, SuspendedCymbal, Taiko, TamTam,
+Tambourine, TempleBlock, Tenor, TenorDrum, TenorSaxophone, Timbales, Timpani,
+TomTom, Triangle, Trombone, Trumpet, Tuba, TubularBells, Ukulele,
+UnpitchedPercussion, Vibraphone, Vibraslap, Viola, Violin, Violoncello,
+Vocalist, Whip, Whistle, WindMachine, Woodblock, WoodwindInstrument, Xylophone
+```
 
-Available scales: Chromatic, Octatonic, Hexatonic-Whole-Tone, Hexatonic-Blues, Pentatonic, Pentatonic-Blues, Neapolitan-Major, Neapolitan-Minor, Flamenco, Minor, Ionian, Dorian, Phrygian, Lydian, Mixolydian, Aeolian, Locrian, Enigma
+* Available scales:
+```
+Chromatic, Octatonic, Hexatonic-Whole-Tone, Hexatonic-Blues, Pentatonic,
+Pentatonic-Blues, Neapolitan-Major, Neapolitan-Minor, Flamenco, Minor, Ionian,
+Dorian, Phrygian, Lydian, Mixolydian, Aeolian, Locrian, Enigma
 ```
