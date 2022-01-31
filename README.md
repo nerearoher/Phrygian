@@ -30,7 +30,7 @@ Using Phrygian you can create music from some example melodies. Three steps are 
 3. Generation. You can now generate some music with the processed file from step 1 and a weigths file from step 2.
 **Note**: In step 3 you **must** use weights generated with the same processed MIDI file you are using.
 
-Phrygian has been tested and has had good results using near 50 MIDI files. The quality of the results might vary depending of the number of MIDIS and their duration.
+Phrygian has been tested and has had good results using near 50 MIDI files. The quality of the results might vary depending of the number of MIDIS, their number of tracks and total notes.
 
 ## Requirements
   * [Python 3](https://www.python.org/downloads/)
@@ -41,6 +41,7 @@ Phrygian has been tested and has had good results using near 50 MIDI files. The 
       - [numpy](https://numpy.org/install/)
       - [pyqt5](https://pypi.org/project/PyQt5/) `(Optional: Needed for the GUI)`
   * [MuseScore 3](https://musescore.org/en/download) `(Optional: Needed to visualize the generated music)`
+
 A `pipfile` is provided so it is easy to install the dependencies using [pipenv](https://pipenv.pypa.io/en/latest/). 
 
 ## Download
