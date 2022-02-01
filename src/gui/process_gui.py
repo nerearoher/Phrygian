@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import (
   QFileDialog, QLineEdit, QDialogButtonBox,
   QFormLayout, QVBoxLayout, QWidget
 )
-from common_gui import accept_and_finish
-from process_midis import process
+from .common_gui import accept_and_finish
+from logic.process_midis import process
 
 class ProcessWindow(QDialog):
   def __init__(self, parent):

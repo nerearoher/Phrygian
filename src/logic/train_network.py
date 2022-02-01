@@ -1,7 +1,7 @@
 from os import path
 import json
 from tensorflow.keras.callbacks import ModelCheckpoint
-from common import prepare_sequences, create_network
+from .common import prepare_sequences, create_network
 
 def train_network(network, sequences, outputs, weights_folder, n_epochs):
     filepath = path.join(weights_folder, "weights-{epoch:02d}-{loss:.4f}.hdf5")

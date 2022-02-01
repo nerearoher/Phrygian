@@ -6,10 +6,10 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import Qt
-from css import PHRYGIAN_GUI
-from generate_gui import GenerationWindow
-from train_gui import TrainWindow
-from process_gui import ProcessWindow
+from gui.css import PHRYGIAN_GUI
+from gui.generate_gui import GenerationWindow
+from gui.train_gui import TrainWindow
+from gui.process_gui import ProcessWindow
 
 PROCESS_STRING = 'Process MIDIs'
 TRAIN_STRING = 'Train neural network'

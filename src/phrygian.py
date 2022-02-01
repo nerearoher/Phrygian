@@ -1,8 +1,8 @@
 from sys import argv
-from process_midis import process
-from train_network import train
-from common import instruments, scales
-from generate_music import generate
+from logic.process_midis import process
+from logic.train_network import train
+from logic.common import instruments, scales
+from logic.generate_music import generate
 from re import match
 
 def print_process_usage():

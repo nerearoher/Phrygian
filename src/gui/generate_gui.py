@@ -4,9 +4,9 @@ from PyQt5.QtWidgets import (
   QFileDialog, QComboBox, QFormLayout, QLineEdit, 
   QSpinBox, QDialogButtonBox 
 )
-from common import instruments, scales
-from common_gui import accept_and_finish
-from generate_music import generate
+from logic.common import instruments, scales
+from logic.generate_music import generate
+from .common_gui import accept_and_finish
 
 symbol_to_accidental = {
   ' ' : '',

@@ -9,7 +9,7 @@ from music21.note import Note, Rest
 from music21.chord import Chord
 from glob import glob
 
-from melody import Melody
+from .melody import Melody
 
 def read_melodies_from_file(file: str):
     print(f"Processing file: {file}")

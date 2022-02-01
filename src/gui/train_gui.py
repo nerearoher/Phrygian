@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import (
   QFileDialog, QLineEdit, QDialogButtonBox,
   QFormLayout, QVBoxLayout, QWidget, QSpinBox
 )
-from common_gui import accept_and_finish
-from train_network import train
+from .common_gui import accept_and_finish
+from logic.train_network import train
 
 class TrainWindow(QDialog):
   def __init__(self, parent):

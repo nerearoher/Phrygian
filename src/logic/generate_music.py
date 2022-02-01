@@ -1,8 +1,8 @@
 import json
 import numpy as np
 import random
-from common import prepare_sequences, create_network, instruments, scales
-from melody import calculate_pitch
+from .common import prepare_sequences, create_network, instruments, scales
+from .melody import calculate_pitch
 from music21.note import Note
 from music21.chord import Chord
 from music21.stream import Stream
